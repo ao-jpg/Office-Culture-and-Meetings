@@ -16,11 +16,9 @@
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:118px}
-  body{
-    margin:0;background:var(--ink);color:var(--text);
+  body{margin:0;background:var(--ink);color:var(--text);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    font-size:17px;line-height:1.65;font-feature-settings:'cv05','cv11';
-  }
+    font-size:17px;line-height:1.65;font-feature-settings:'cv05','cv11'}
   a{color:var(--teal);text-decoration:none}
   a:hover{text-decoration:underline}
   :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
@@ -47,15 +45,15 @@
   header.hero{padding:70px 0 56px;border-bottom:1px solid var(--line)}
   h1{font-size:clamp(2.1rem,5.2vw,3.15rem);line-height:1.06;letter-spacing:-.03em;
     font-weight:660;margin:0 0 18px}
-  .lede{font-size:1.13rem;color:#c8d9e7;margin:0;max-width:60ch}
-  header.hero .rail{margin-top:44px;margin-bottom:0}
+  .lede{font-size:1.13rem;color:#c8d9e7;margin:0;max-width:62ch}
+  header.hero .rail{margin-top:44px}
 
   .rail{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
   .rail-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
     padding:16px 22px;border-bottom:1px solid var(--line);color:var(--muted);font-size:14.5px}
   .rail-body{padding:30px 22px 26px;overflow-x:auto}
   .rail-grid{min-width:620px}
-  .rail-row{display:grid;grid-template-columns:138px 1fr;align-items:center;gap:18px;margin-bottom:20px}
+  .rail-row{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:18px;margin-bottom:20px}
   .rail-row:last-child{margin-bottom:0}
   .rail-label{font-size:14px;color:var(--muted);text-align:right;line-height:1.3}
   .rail-label b{display:block;color:var(--text);font-weight:600;font-size:15.5px}
@@ -73,23 +71,36 @@
   h3{font-size:1.14rem;letter-spacing:-.012em;font-weight:620;margin:32px 0 8px}
   .sub{color:var(--muted);margin:0 0 32px;max-width:64ch}
   p{margin:0 0 16px}
-  ul.plain{margin:0 0 16px;padding-left:20px;color:var(--muted)}
-  ul.plain li{margin-bottom:5px}
-  ul.plain li::marker{color:var(--teal-dim)}
 
+  /* ---------- video ---------- */
+  .video{display:grid;grid-template-columns:minmax(0,400px) 1fr;gap:30px;align-items:start;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px}
+  @media (max-width:820px){.video{grid-template-columns:1fr;gap:22px}}
+  .frame{position:relative;width:100%;aspect-ratio:1/1;background:#081220;
+    border:1px solid var(--line-strong);border-radius:11px;overflow:hidden}
+  .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-info h3{margin:0 0 8px;font-size:1.18rem}
+  .video-info p{color:var(--muted);font-size:15.5px;margin:0 0 14px}
+  .video-meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13.5px;
+    border-top:1px solid var(--line);padding-top:14px;margin-top:4px}
+  .video-meta b{color:var(--text);font-weight:560}
+  .watch{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--teal);
+    color:var(--teal);border-radius:9px;padding:9px 16px;font-size:14.5px;font-weight:560}
+  .watch:hover{text-decoration:none;background:rgba(53,198,180,.11)}
+
+  /* ---------- cards ---------- */
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
   .card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;
     padding:24px;color:var(--text);border-top:3px solid var(--teal)}
   .card:hover{text-decoration:none;border-color:var(--line-strong);background:var(--raise)}
-  .card.pending{border-top-color:var(--amber)}
   .card h3{margin:0 0 6px;font-size:1.24rem;font-weight:640}
   .card .cadence{color:var(--teal);font-size:14px;font-weight:560;margin:0 0 12px}
-  .card.pending .cadence{color:var(--amber)}
   .card p{color:var(--muted);font-size:15px;margin:0 0 16px}
   .card .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13.5px;
     border-top:1px solid var(--line);padding-top:13px}
   .card .meta b{color:var(--text);font-weight:560}
 
+  /* ---------- rules ---------- */
   .rules{display:grid;gap:2px;background:var(--line);border:1px solid var(--line);
     border-radius:14px;overflow:hidden}
   .rule{background:var(--panel);padding:22px 24px;display:grid;grid-template-columns:32px 1fr;
@@ -101,6 +112,7 @@
   .rule p{margin:0;color:var(--muted);font-size:15px}
   .rule p + p{margin-top:8px}
 
+  /* ---------- agenda timeline ---------- */
   .agenda{border-left:2px solid var(--line-strong);margin:0;padding:0;list-style:none}
   .agenda li{position:relative;padding:0 0 32px 30px}
   .agenda li:last-child{padding-bottom:0}
@@ -111,20 +123,36 @@
   .agenda .who{color:var(--muted);font-size:13.5px;margin:0 0 8px}
   .agenda h3{margin:0 0 4px;font-size:1.06rem}
   .agenda p{margin:0 0 8px;color:var(--muted);font-size:15px}
-  .agenda ul{margin:0;padding-left:19px;color:var(--muted);font-size:14.5px;
-    columns:2;column-gap:34px}
+  .agenda ul{margin:0;padding-left:19px;color:var(--muted);font-size:14.5px;columns:2;column-gap:34px}
   .agenda ul li{padding:0 0 3px;break-inside:avoid}
   .agenda ul li::before{display:none}
   .agenda ul li::marker{color:var(--teal-dim)}
   @media (max-width:640px){.agenda ul{columns:1}}
 
-  .note{background:rgba(224,164,88,.08);border:1px solid rgba(224,164,88,.32);
-    border-radius:12px;padding:20px 22px;margin:28px 0}
-  .note h3{margin:0 0 6px;color:var(--amber);font-size:1.02rem}
-  .note p{margin:0;color:#dcc8ab;font-size:15px}
+  /* ---------- chain ---------- */
+  .chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 30px}
+  .chain .step{background:var(--panel);border:1px solid var(--line-strong);border-radius:9px;
+    padding:10px 16px;font-size:14px;font-weight:560;letter-spacing:.01em;white-space:nowrap}
+  .chain .arr{color:var(--teal);font-size:15px}
 
+  /* ---------- parts ---------- */
+  .parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:16px}
+  .part{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .part.wide{grid-column:1/-1}
+  .part h3{margin:0 0 8px;font-size:1.04rem;font-weight:620}
+  .part h3.sec{margin-top:20px}
+  .part p{margin:0 0 10px;color:var(--muted);font-size:15px}
+  .part p:last-child{margin-bottom:0}
+  .part ul{margin:0;padding-left:19px;color:var(--muted);font-size:14.5px}
+  .part ul li{margin-bottom:4px}
+  .part ul li::marker{color:var(--teal-dim)}
+  .part ul.cols{columns:2;column-gap:30px}
+  .part ul.cols li{break-inside:avoid}
+  @media (max-width:620px){.part ul.cols{columns:1}}
+
+  /* ---------- misc ---------- */
   .quote{border-left:3px solid var(--teal);padding:4px 0 4px 20px;margin:22px 0;
-    font-size:1.05rem;color:#cfe0ec}
+    font-size:1.05rem;color:#cfe0ec;max-width:66ch}
   .quote span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
 
   .checklist{list-style:none;padding:0;margin:0}
@@ -150,8 +178,9 @@
   table.tbl th,table.tbl td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line);vertical-align:top}
   table.tbl tr:last-child td{border-bottom:0}
   table.tbl th{color:var(--muted);font-weight:560;font-size:13.5px;border-bottom-color:var(--line-strong)}
-  table.tbl td:first-child{font-weight:560;white-space:nowrap}
-  table.tbl td.time{color:var(--teal);font-weight:600}
+  table.tbl td:first-child{font-weight:560}
+  table.tbl td.time,table.tbl td.home{color:var(--teal);white-space:nowrap}
+  table.tbl tr.total td{border-top:1px solid var(--line-strong);color:var(--text);font-weight:600}
 
   .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
   .rolecard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px 24px}
@@ -170,10 +199,10 @@
   .topic p{margin:0 0 10px;color:var(--muted);font-size:15px}
   .topic p:last-child{margin-bottom:0}
 
-  .status{display:inline-flex;align-items:center;gap:8px;background:rgba(224,164,88,.12);
-    border:1px solid rgba(224,164,88,.35);color:var(--amber);border-radius:999px;
-    padding:6px 14px;font-size:13.5px;font-weight:560;margin-bottom:22px}
-  .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber)}
+  .note{background:rgba(224,164,88,.08);border:1px solid rgba(224,164,88,.32);
+    border-radius:12px;padding:20px 22px;margin:28px 0}
+  .note h3{margin:0 0 6px;color:var(--amber);font-size:1.02rem}
+  .note p{margin:0;color:#dcc8ab;font-size:15px}
 
   .btn{display:inline-block;border:1px solid var(--teal);color:var(--teal);background:transparent;
     border-radius:9px;padding:10px 18px;font-size:15px;font-family:inherit;cursor:pointer;font-weight:560}
@@ -185,31 +214,32 @@
   .pagenav a:hover{text-decoration:none;border-color:var(--teal);color:var(--teal)}
 
   .closer{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);
-    border-radius:13px;padding:32px 34px;margin:0}
+    border-radius:13px;padding:32px 34px}
   .closer h2{margin-bottom:14px;font-size:1.45rem}
   .closer p{color:#c8d9e7;margin:0 0 12px}
   .closer p:last-child{margin:0;color:var(--teal);font-weight:600}
 
   footer.site{border-top:1px solid var(--line);padding:26px 0 46px;color:var(--muted);font-size:14px}
 
-  /* ---------- minutes sheet ---------- */
+  /* ---------- printable sheets ---------- */
   .minutes{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:28px 30px}
-  .minutes .field{border-bottom:1px solid var(--line-strong);padding:9px 0 9px;margin-bottom:14px}
+  .minutes .field{border-bottom:1px solid var(--line-strong);padding:9px 0;margin-bottom:14px}
   .minutes .field span{color:var(--muted);font-size:13.5px;display:block;margin-bottom:16px}
   .minutes h3{margin:26px 0 12px;font-size:1.02rem}
+  .minutes h3:first-child{margin-top:0}
   .minutes .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
   @media (max-width:640px){.minutes .grid2{grid-template-columns:1fr}}
   table.blank{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
   table.blank th{text-align:left;color:var(--muted);font-weight:560;font-size:13px;
     padding:8px 10px;border-bottom:1px solid var(--line-strong)}
   table.blank td{border-bottom:1px solid var(--line);height:38px;padding:8px 10px}
-  table.blank td:last-child{width:90px;text-align:center;color:var(--muted)}
+  table.blank td.tick{width:80px;text-align:center;color:var(--muted)}
 
   @media print{
     body{background:#fff;color:#000;font-size:12pt}
-    .topbar,.jump,.pagenav,footer.site,.btn,.no-print{display:none!important}
-    body.print-minutes header.hero,body.print-minutes section:not(#minutes){display:none!important}
-    body.print-minutes #minutes{padding:0;border:0}
+    .topbar,.jump,.pagenav,footer.site,.btn,.no-print,.video{display:none!important}
+    body.print-sheet header.hero,body.print-sheet section:not(.sheet){display:none!important}
+    body.print-sheet .sheet{padding:0;border:0}
     .minutes{background:#fff;border:1px solid #999;color:#000}
     .minutes .field{border-bottom:1px solid #666}
     .minutes .field span{color:#444}
@@ -237,40 +267,265 @@
   </div>
 </nav>
 
+<div class="jump"><div class="wrap">
+  <a href="#format">Format</a>
+  <a href="#groups">Leadership groups</a>
+  <a href="#prep">Preparation</a>
+  <a href="#agenda">Agenda</a>
+  <a href="#build">Build a presentation</a>
+  <a href="#standards">Standards and roles</a>
+  <a href="#after">After the meeting</a>
+  <a href="#template">Planning template</a>
+</div></div>
+
 
 <header class="hero">
   <div class="wrap">
-    <div class="status">Training in development</div>
     <h1>Quarterly meeting</h1>
-    <p class="lede">Four times a year the whole team looks back at the quarter that closed and sets the
-    direction for the one starting.</p>
+    <p class="lede">Four times a year the whole practice steps back from daily operations to strengthen
+    Alexandria Orthodontics as a whole.</p>
   </div>
 </header>
 
-<section>
-  <div class="wrap prose">
-    <h2>What this meeting is for</h2>
-    <p>The quarterly meeting is the only meeting where we routinely look at the practice as a whole: where
-    the numbers landed, what changed, what we committed to last quarter, and what we are committing to
-    next.</p>
-    <p>This training page is being written. Until it is published, the
-    <a href="index.html#rules">rules that apply to every meeting</a> apply to this one in full.</p>
+<section id="format">
+  <div class="wrap">
+    <h2>Format</h2>
+    <p class="sub">Practice-wide training and development, held Q1, Q2, Q3, and Q4.</p>
+    <ul class="checklist">
+      <li>Typical duration is four to five hours.</li>
+      <li>The office is closed so the entire team can participate without patient-flow interruptions.</li>
+      <li>All Team Leaders prepare a focused presentation on a specific topic or connected set of topics.</li>
+      <li>The entire team is often involved through discussion, exercises, role-play, or problem-solving.</li>
+    </ul>
+
+    <h3 style="margin-top:44px">Themes that work well</h3>
+    <ul class="checklist two">
+      <li>Culture</li>
+      <li>Communication</li>
+      <li>Systems</li>
+      <li>Problem-solving</li>
+      <li>Accountability</li>
+      <li>Teamwork</li>
+      <li>Leadership</li>
+      <li>Efficiency</li>
+      <li>Patient experience</li>
+      <li>Practice standards</li>
+    </ul>
+    <p class="prose" style="margin-top:20px">The
+    <a href="../culture.html">AO Culture 5</a> is a natural fit for a culture-themed quarterly.</p>
+  </div>
+</section>
+
+<section id="groups">
+  <div class="wrap">
+    <h2>Leadership groups</h2>
+    <p class="sub">Three groups present each quarter. Their sections should complement one another rather
+    than repeat the same material.</p>
+    <div class="table-scroll">
+      <table class="tbl">
+        <thead><tr><th>Group</th><th>Typical focus</th></tr></thead>
+        <tbody>
+          <tr><td>Doctors</td>
+              <td>Practice vision, clinical philosophy, standards, culture, strategic systems</td></tr>
+          <tr><td>Front Desk Management</td>
+              <td>Scheduling, patient communication, treatment coordination, financial and administrative
+              systems</td></tr>
+          <tr><td>Clinical Leadership</td>
+              <td>Clinical workflow, patient experience, communication, training, efficiency, standards</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="prep">
+  <div class="wrap">
+    <h2>Leadership preparation</h2>
+    <p class="sub">Plan weeks ahead, not the morning of the meeting.</p>
+    <ul class="checklist">
+      <li>Choose the quarterly theme and explain why it matters now.</li>
+      <li>Define the desired outcome: what should the team understand or do differently afterward?</li>
+      <li>Assign each leadership group a focused presentation or workshop.</li>
+      <li>Coordinate presentations so they complement one another instead of repeating the same material.</li>
+      <li>Prepare examples, videos, activities, worksheets, scenarios, or role-play as needed.</li>
+      <li>Decide how action points will be captured and who will record them.</li>
+      <li>Assign a timekeeper and facilitator.</li>
+      <li>Prepare the final action-point review and follow-up plan.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="agenda">
+  <div class="wrap">
+    <h2>General agenda</h2>
+    <p class="sub">The shape of the day. Adjust the section lengths to fit the presentations you have.</p>
+    <div class="table-scroll">
+      <table class="tbl">
+        <thead><tr><th>Section</th><th>Typical time</th></tr></thead>
+        <tbody>
+          <tr><td>Introduction of the topic</td><td class="time">10 min</td></tr>
+          <tr><td>Icebreaker</td><td class="time">10 to 15 min</td></tr>
+          <tr><td>Leadership Group 1</td><td class="time">60 to 90 min</td></tr>
+          <tr><td>Break</td><td class="time">10 min</td></tr>
+          <tr><td>Leadership Group 2</td><td class="time">60 to 90 min</td></tr>
+          <tr><td>Break</td><td class="time">10 min</td></tr>
+          <tr><td>Leadership Group 3</td><td class="time">60 to 90 min</td></tr>
+          <tr><td>Practice-wide action points and closing</td><td class="time">15 to 30 min</td></tr>
+          <tr><td>Team outing</td><td class="time">After the meeting, as planned</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote">If all three presentations run 75 to 90 minutes, plan a longer meeting day or shorten
+    other sections. Protect the action-point closing.</div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <h2>How to build a quarterly presentation</h2>
+    <p class="sub">Five blocks. A presentation that stops after the first two will not change anything on
+    Monday.</p>
+    <ul class="agenda">
+      <li><span class="t">Block 1</span><h3>Teach</h3>
+        <p>Introduce the concept and why it matters.</p></li>
+      <li><span class="t">Block 2</span><h3>Show</h3>
+        <p>Use examples, videos, demonstrations, or real AO scenarios.</p></li>
+      <li><span class="t">Block 3</span><h3>Discuss</h3>
+        <p>Ask the team questions and identify current problems.</p></li>
+      <li><span class="t">Block 4</span><h3>Practice</h3>
+        <p>Role-play, work through cases, or complete a group activity.</p></li>
+      <li class="wide"><span class="t">Block 5</span><h3>Apply</h3>
+        <p>Define what changes at AO and how it will be implemented.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="standards">
+  <div class="wrap">
+    <h2>Quarterly meeting standards</h2>
+    <p class="sub">These build on the
+      <a href="index.html#rules">rules that apply to every meeting</a> and matter most in a room this
+      large.</p>
+    <div class="rules">
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Create a safe environment</h3>
+        <p>Team members should be able to speak honestly and respectfully.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Stay on topic</h3>
+        <p>Use the facilitator and timekeeper to move the meeting forward.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Participate</h3>
+        <p>These are interactive meetings, not passive lectures. Participation is expected.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Be on time</h3>
+        <p>That applies to the start of the day and to returning from every break.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Phones and smartwatches away</h3>
+        <p>Unless they are required for the meeting.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Respect the person speaking</h3>
+        <p>Avoid side conversations and whispering.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Come prepared to identify solutions</h3>
+        <p>Not only problems.</p></div></div>
+    </div>
+
+    <h3 style="margin-top:44px">Meeting roles</h3>
+    <div class="parts">
+      <div class="part"><h3>Facilitator</h3>
+        <p>Keeps the meeting moving and manages discussion.</p></div>
+      <div class="part"><h3>Timekeeper</h3>
+        <p>Watches presentation and break times.</p></div>
+      <div class="part"><h3>Action-point recorders</h3>
+        <p>Capture decisions, owners, and follow-up dates.</p></div>
+      <div class="part"><h3>Presenters</h3>
+        <p>Teach and facilitate the assigned section.</p></div>
+      <div class="part"><h3>Team Leaders</h3>
+        <p>Support participation and help translate ideas into systems.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="after">
+  <div class="wrap">
+    <h2>After the quarterly meeting</h2>
+    <p class="sub">A good presentation is only useful if something changes afterward.</p>
+
+    <h3>Close with practice-wide action points</h3>
+    <ul class="checklist two">
+      <li>What are we changing?</li>
+      <li>What does the new system look like?</li>
+      <li>Who owns the implementation?</li>
+      <li>When does it begin?</li>
+      <li>Who needs training?</li>
+      <li>Where will the system be documented?</li>
+      <li>When will leadership follow up?</li>
+    </ul>
+
+    <h3 style="margin-top:44px">Within the following week</h3>
+    <ul class="checklist">
+      <li>Finalize and distribute meeting minutes.</li>
+      <li>Publish or update new systems, checklists, scripts, or training materials.</li>
+      <li>Assign required training.</li>
+      <li>Communicate with anyone who missed the meeting.</li>
+      <li>Review major action points with leadership.</li>
+      <li>Add relevant department-level issues to upcoming team meetings.</li>
+      <li>Use morning huddles to reinforce execution when the new system affects daily operations.</li>
+    </ul>
+
+    <h3 style="margin-top:44px">The follow-through cycle</h3>
+    <div class="table-scroll">
+      <table class="tbl">
+        <thead><tr><th>Meeting</th><th>Role in the system</th></tr></thead>
+        <tbody>
+          <tr><td>Quarterly meeting</td><td>Teach and establish the larger direction.</td></tr>
+          <tr><td>Team meeting</td><td>Build, refine, and maintain the department-level system.</td></tr>
+          <tr><td>Morning huddle</td><td>Execute today's plan and surface immediate issues.</td></tr>
+          <tr><td>Leadership follow-up</td><td>Verify the system is still being used and working.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="template" class="sheet">
+  <div class="wrap">
+    <h2>Quarterly meeting planning template</h2>
+    <p class="sub no-print">Theme, presentations, activities, and follow-through. Fill this in weeks before
+    the meeting.</p>
+    <p class="no-print"><button class="btn" id="printSheet">Print the planning template</button></p>
+
+    <div class="minutes">
+      <table class="blank">
+        <thead><tr><th style="width:40%">Planning item</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Quarter and date</td><td></td></tr>
+          <tr><td>Theme</td><td></td></tr>
+          <tr><td>Why this matters now</td><td></td></tr>
+          <tr><td>Desired team outcome</td><td></td></tr>
+          <tr><td>Doctor presentation</td><td></td></tr>
+          <tr><td>Front Desk Management presentation</td><td></td></tr>
+          <tr><td>Clinical Leadership presentation</td><td></td></tr>
+          <tr><td>Icebreaker or activity</td><td></td></tr>
+          <tr><td>Facilitator</td><td></td></tr>
+          <tr><td>Timekeeper</td><td></td></tr>
+          <tr><td>Action-point recorders</td><td></td></tr>
+          <tr><td>Team outing</td><td></td></tr>
+          <tr><td>Follow-up date</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>What the finished page will cover</h2>
-    <p class="sub">Planned outline, to be filled in.</p>
-    <ul class="checklist">
-      <li>Purpose of the quarterly meeting and how it fits with the huddle and team meeting</li>
-      <li>Format, length, and location</li>
-      <li>Which results are reviewed and who presents them</li>
-      <li>How last quarter's goals are scored</li>
-      <li>How goals for the coming quarter are set and assigned</li>
-      <li>How team members prepare beforehand</li>
-      <li>What happens after the meeting and how progress is tracked</li>
-    </ul>
+    <div class="closer">
+      <h2>Teach. Show. Discuss. Practice. Apply.</h2>
+      <p>The quarterly meeting sets direction. The team meeting turns that direction into a department
+      system. The morning huddle executes it.</p>
+      <p>Protect the action-point closing. That is where the day becomes something that lasts.</p>
+    </div>
   </div>
 </section>
 
@@ -278,7 +533,7 @@
   <div class="pagenav">
     <a href="index.html">All meetings</a>
     <a href="morning-huddle.html">Morning huddle</a>
-    <a href="team-meetings.html">Team meeting</a>
+    <a href="team-meetings.html">Team meetings</a>
   </div>
 </div>
 
@@ -286,6 +541,20 @@
 <footer class="site">
   <div class="wrap">Alexandria Orthodontics &middot; Internal team training. Not for distribution outside the practice.</div>
 </footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('printSheet');
+    if(!btn) return;
+    function cleanup(){ document.body.classList.remove('print-sheet'); }
+    btn.addEventListener('click', function(){
+      document.body.classList.add('print-sheet');
+      window.addEventListener('afterprint', cleanup, { once: true });
+      window.print();
+      setTimeout(cleanup, 2000);
+    });
+  })();
+</script>
 
 </body>
 </html>
