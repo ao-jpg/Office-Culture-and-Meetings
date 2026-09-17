@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Huddle | Alexandria Orthodontics Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;560;600;650&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a1826; --panel:#102639; --raise:#16324b;
+    --teal:#35c6b4; --teal-dim:#1d7c72; --amber:#e0a458; --rose:#d98080;
+    --text:#e9f1f7; --muted:#93a9be;
+    --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.17);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:118px}
+  body{
+    margin:0;background:var(--ink);color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:17px;line-height:1.65;font-feature-settings:'cv05','cv11';
+  }
+  a{color:var(--teal);text-decoration:none}
+  a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+  .prose{max-width:68ch}
+
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,24,38,.94);
+    backdrop-filter:blur(8px);position:sticky;top:0;z-index:30}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;min-height:58px;flex-wrap:wrap}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.01em;color:var(--text)}
+  .mark:hover{text-decoration:none;color:var(--teal)}
+  .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
+  .crumbs{margin-left:auto;color:var(--muted);font-size:14.5px}
+  .crumbs a{color:var(--muted)}
+  .crumbs a:hover{color:var(--teal)}
+
+  .jump{position:sticky;top:58px;z-index:25;background:rgba(16,38,57,.96);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .jump .wrap{display:flex;gap:22px;overflow-x:auto;padding-top:12px;padding-bottom:12px;
+    font-size:14px;scrollbar-width:thin}
+  .jump a{color:var(--muted);white-space:nowrap}
+  .jump a:hover{color:var(--teal);text-decoration:none}
+
+  header.hero{padding:70px 0 56px;border-bottom:1px solid var(--line)}
+  h1{font-size:clamp(2.1rem,5.2vw,3.15rem);line-height:1.06;letter-spacing:-.03em;
+    font-weight:660;margin:0 0 18px}
+  .lede{font-size:1.13rem;color:#c8d9e7;margin:0;max-width:60ch}
+  header.hero .rail{margin-top:44px;margin-bottom:0}
+
+  .rail{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  .rail-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+    padding:16px 22px;border-bottom:1px solid var(--line);color:var(--muted);font-size:14.5px}
+  .rail-body{padding:30px 22px 26px;overflow-x:auto}
+  .rail-grid{min-width:620px}
+  .rail-row{display:grid;grid-template-columns:138px 1fr;align-items:center;gap:18px;margin-bottom:20px}
+  .rail-row:last-child{margin-bottom:0}
+  .rail-label{font-size:14px;color:var(--muted);text-align:right;line-height:1.3}
+  .rail-label b{display:block;color:var(--text);font-weight:600;font-size:15.5px}
+  .ticks{position:relative;height:34px;border-left:1px solid var(--line-strong);border-right:1px solid var(--line-strong)}
+  .ticks::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+  .tick{position:absolute;top:50%;transform:translate(-50%,-50%);border-radius:50%}
+  .tick.d{width:9px;height:9px;background:var(--teal)}
+  .tick.b{width:15px;height:15px;background:var(--teal-dim);border:2px solid var(--teal)}
+  .tick.q{width:22px;height:22px;border:2px solid var(--amber)}
+  .rail-foot{padding:0 22px 20px;color:var(--muted);font-size:13.5px}
+
+  section{padding:60px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  h2{font-size:1.62rem;letter-spacing:-.022em;font-weight:640;margin:0 0 10px;line-height:1.2}
+  h3{font-size:1.14rem;letter-spacing:-.012em;font-weight:620;margin:32px 0 8px}
+  .sub{color:var(--muted);margin:0 0 32px;max-width:64ch}
+  p{margin:0 0 16px}
+  ul.plain{margin:0 0 16px;padding-left:20px;color:var(--muted)}
+  ul.plain li{margin-bottom:5px}
+  ul.plain li::marker{color:var(--teal-dim)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:24px;color:var(--text);border-top:3px solid var(--teal)}
+  .card:hover{text-decoration:none;border-color:var(--line-strong);background:var(--raise)}
+  .card.pending{border-top-color:var(--amber)}
+  .card h3{margin:0 0 6px;font-size:1.24rem;font-weight:640}
+  .card .cadence{color:var(--teal);font-size:14px;font-weight:560;margin:0 0 12px}
+  .card.pending .cadence{color:var(--amber)}
+  .card p{color:var(--muted);font-size:15px;margin:0 0 16px}
+  .card .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13.5px;
+    border-top:1px solid var(--line);padding-top:13px}
+  .card .meta b{color:var(--text);font-weight:560}
+
+  .rules{display:grid;gap:2px;background:var(--line);border:1px solid var(--line);
+    border-radius:14px;overflow:hidden}
+  .rule{background:var(--panel);padding:22px 24px;display:grid;grid-template-columns:32px 1fr;
+    gap:16px;align-items:start}
+  .rule .glyph{width:26px;height:26px;border-radius:7px;background:rgba(53,198,180,.14);
+    border:1px solid rgba(53,198,180,.4);color:var(--teal);display:flex;align-items:center;
+    justify-content:center;font-size:13.5px;font-weight:640;margin-top:2px}
+  .rule h3{margin:0 0 4px;font-size:1.04rem;font-weight:620}
+  .rule p{margin:0;color:var(--muted);font-size:15px}
+  .rule p + p{margin-top:8px}
+
+  .agenda{border-left:2px solid var(--line-strong);margin:0;padding:0;list-style:none}
+  .agenda li{position:relative;padding:0 0 32px 30px}
+  .agenda li:last-child{padding-bottom:0}
+  .agenda li::before{content:"";position:absolute;left:-7px;top:9px;width:12px;height:12px;
+    border-radius:50%;background:var(--ink);border:2px solid var(--teal)}
+  .agenda li.wide::before{background:var(--teal)}
+  .agenda .t{color:var(--teal);font-size:13.5px;font-weight:600;display:block;margin-bottom:2px}
+  .agenda .who{color:var(--muted);font-size:13.5px;margin:0 0 8px}
+  .agenda h3{margin:0 0 4px;font-size:1.06rem}
+  .agenda p{margin:0 0 8px;color:var(--muted);font-size:15px}
+  .agenda ul{margin:0;padding-left:19px;color:var(--muted);font-size:14.5px;
+    columns:2;column-gap:34px}
+  .agenda ul li{padding:0 0 3px;break-inside:avoid}
+  .agenda ul li::before{display:none}
+  .agenda ul li::marker{color:var(--teal-dim)}
+  @media (max-width:640px){.agenda ul{columns:1}}
+
+  .note{background:rgba(224,164,88,.08);border:1px solid rgba(224,164,88,.32);
+    border-radius:12px;padding:20px 22px;margin:28px 0}
+  .note h3{margin:0 0 6px;color:var(--amber);font-size:1.02rem}
+  .note p{margin:0;color:#dcc8ab;font-size:15px}
+
+  .quote{border-left:3px solid var(--teal);padding:4px 0 4px 20px;margin:22px 0;
+    font-size:1.05rem;color:#cfe0ec}
+  .quote span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+
+  .checklist{list-style:none;padding:0;margin:0}
+  .checklist li{position:relative;padding:11px 0 11px 30px;border-bottom:1px solid var(--line);font-size:15.5px}
+  .checklist li:last-child{border-bottom:0}
+  .checklist li::before{content:"";position:absolute;left:2px;top:19px;width:11px;height:11px;
+    border:1.5px solid var(--teal-dim);border-radius:3px}
+  .checklist.two{columns:2;column-gap:40px}
+  .checklist.two li{break-inside:avoid;border-bottom:0;padding:7px 0 7px 30px}
+  .checklist.two li::before{top:15px}
+  @media (max-width:700px){.checklist.two{columns:1}}
+
+  .notlist{list-style:none;padding:0;margin:0;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .notlist li{background:var(--panel);padding:15px 18px 15px 40px;position:relative;
+    font-size:15px;color:var(--muted)}
+  .notlist li::before{content:"\00d7";position:absolute;left:17px;top:14px;
+    color:var(--rose);font-size:17px;line-height:1.35}
+
+  .table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  table.tbl{width:100%;border-collapse:collapse;font-size:15px}
+  table.tbl th,table.tbl td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.tbl tr:last-child td{border-bottom:0}
+  table.tbl th{color:var(--muted);font-weight:560;font-size:13.5px;border-bottom-color:var(--line-strong)}
+  table.tbl td:first-child{font-weight:560;white-space:nowrap}
+  table.tbl td.time{color:var(--teal);font-weight:600}
+
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .rolecard{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px 24px}
+  .rolecard h3{margin:0 0 4px;font-size:1.08rem}
+  .rolecard .role-note{color:var(--muted);font-size:14.5px;margin:0 0 12px}
+  .rolecard ul{margin:0;padding-left:19px;color:var(--muted);font-size:14.5px}
+  .rolecard ul li{margin-bottom:4px}
+  .rolecard ul li::marker{color:var(--teal-dim)}
+  .rolecard.wide{grid-column:1/-1}
+
+  .topics{display:grid;gap:2px;background:var(--line);border:1px solid var(--line);
+    border-radius:13px;overflow:hidden}
+  .topic{background:var(--panel);padding:24px}
+  .topic h3{margin:0 0 8px;font-size:1.1rem;display:flex;align-items:baseline;gap:11px}
+  .topic h3 .n{color:var(--teal);font-size:.9rem;font-weight:640;flex:none}
+  .topic p{margin:0 0 10px;color:var(--muted);font-size:15px}
+  .topic p:last-child{margin-bottom:0}
+
+  .status{display:inline-flex;align-items:center;gap:8px;background:rgba(224,164,88,.12);
+    border:1px solid rgba(224,164,88,.35);color:var(--amber);border-radius:999px;
+    padding:6px 14px;font-size:13.5px;font-weight:560;margin-bottom:22px}
+  .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber)}
+
+  .btn{display:inline-block;border:1px solid var(--teal);color:var(--teal);background:transparent;
+    border-radius:9px;padding:10px 18px;font-size:15px;font-family:inherit;cursor:pointer;font-weight:560}
+  .btn:hover{background:rgba(53,198,180,.1)}
+
+  .pagenav{display:flex;gap:14px;flex-wrap:wrap;padding:34px 0 70px}
+  .pagenav a{border:1px solid var(--line-strong);border-radius:10px;padding:11px 18px;
+    font-size:15px;color:var(--text);background:var(--panel)}
+  .pagenav a:hover{text-decoration:none;border-color:var(--teal);color:var(--teal)}
+
+  .closer{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);
+    border-radius:13px;padding:32px 34px;margin:0}
+  .closer h2{margin-bottom:14px;font-size:1.45rem}
+  .closer p{color:#c8d9e7;margin:0 0 12px}
+  .closer p:last-child{margin:0;color:var(--teal);font-weight:600}
+
+  footer.site{border-top:1px solid var(--line);padding:26px 0 46px;color:var(--muted);font-size:14px}
+
+  /* ---------- minutes sheet ---------- */
+  .minutes{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:28px 30px}
+  .minutes .field{border-bottom:1px solid var(--line-strong);padding:9px 0 9px;margin-bottom:14px}
+  .minutes .field span{color:var(--muted);font-size:13.5px;display:block;margin-bottom:16px}
+  .minutes h3{margin:26px 0 12px;font-size:1.02rem}
+  .minutes .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+  @media (max-width:640px){.minutes .grid2{grid-template-columns:1fr}}
+  table.blank{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
+  table.blank th{text-align:left;color:var(--muted);font-weight:560;font-size:13px;
+    padding:8px 10px;border-bottom:1px solid var(--line-strong)}
+  table.blank td{border-bottom:1px solid var(--line);height:38px;padding:8px 10px}
+  table.blank td:last-child{width:90px;text-align:center;color:var(--muted)}
+
+  @media print{
+    body{background:#fff;color:#000;font-size:12pt}
+    .topbar,.jump,.pagenav,footer.site,.btn,.no-print{display:none!important}
+    body.print-minutes header.hero,body.print-minutes section:not(#minutes){display:none!important}
+    body.print-minutes #minutes{padding:0;border:0}
+    .minutes{background:#fff;border:1px solid #999;color:#000}
+    .minutes .field{border-bottom:1px solid #666}
+    .minutes .field span{color:#444}
+    table.blank td{border-bottom:1px solid #bbb}
+    table.blank th{color:#333;border-bottom:1px solid #666}
+    h2,h3{color:#000}
+  }
+  @media (max-width:640px){
+    body{font-size:16px}
+    header.hero{padding:46px 0 40px}
+    section{padding:44px 0}
+    .rule{grid-template-columns:1fr;gap:10px}
+    .crumbs{width:100%;margin-left:0}
+    .minutes{padding:22px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <a class="mark" href="../index.html"><span class="dot"></span>Alexandria Orthodontics Training</a>
+    <div class="crumbs"><a href="index.html">Meetings</a> / Morning huddle</div>
+  </div>
+</nav>
+
+<div class="jump"><div class="wrap">
+  <a href="#purpose">Purpose</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#rules">Rules</a>
+  <a href="#prep">Preparation by role</a>
+  <a href="#topics">Key topics</a>
+  <a href="#flow">The 15 minutes</a>
+  <a href="#minutes">Minutes sheet</a>
+  <a href="#standard">The standard</a>
+</div></div>
+
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Morning huddle</h1>
+    <p class="lede">Fifteen minutes, every clinic day, before the first patient is seen. The huddle is how
+    we find the day's problems while there is still time to solve them.</p>
+  </div>
+</header>
+
+<section id="purpose">
+  <div class="wrap">
+    <div class="prose">
+      <h2>Purpose of the morning huddle</h2>
+      <p>The morning huddle is a 15-minute daily team meeting designed to prepare the office for the day
+      before the first patient is seen.</p>
+      <p>The huddle is not simply a time for announcements. It is our opportunity to review the schedule as
+      a team, identify potential problems, coordinate patient flow, clarify responsibilities, and prevent
+      avoidable delays.</p>
+    </div>
+
+    <h3>A successful huddle answers all of these</h3>
+    <ul class="checklist two">
+      <li>Where are the potential problems today?</li>
+      <li>Where are we short-staffed?</li>
+      <li>Are any appointments scheduled incorrectly?</li>
+      <li>Where will doctor time be concentrated?</li>
+      <li>Which patients need extra attention or explanation?</li>
+      <li>Are there procedures a technician is not trained or comfortable performing?</li>
+      <li>Are there lab priorities that affect today's patients?</li>
+      <li>Are there patients with deadlines or special scheduling needs?</li>
+      <li>What needs to be adjusted before the first patient arrives?</li>
+      <li>Who is responsible for each action item?</li>
+    </ul>
+
+    <div class="quote">The goal is to identify problems before they become problems.</div>
+  </div>
+</section>
+
+<section id="schedule">
+  <div class="wrap">
+    <h2>When we huddle</h2>
+    <p class="sub">Fifteen minutes, every clinic day. Times differ by day, so check the day you are working.</p>
+    <div class="table-scroll">
+      <table class="tbl">
+        <thead><tr><th>Day</th><th>Huddle time</th></tr></thead>
+        <tbody>
+          <tr><td>Monday</td><td class="time">6:40 AM</td></tr>
+          <tr><td>Tuesday</td><td class="time">9:30 AM</td></tr>
+          <tr><td>Wednesday</td><td class="time">9:30 AM</td></tr>
+          <tr><td>Thursday</td><td class="time">9:30 AM</td></tr>
+          <tr><td>Friday</td><td class="time">6:40 AM</td></tr>
+          <tr><td>Saturday</td><td class="time">7:40 AM</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote">Arriving at the scheduled huddle time is late.
+      <span>Arrive early enough to be prepared and seated before the meeting starts.</span></div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <h2>Morning huddle rules</h2>
+    <p class="sub">These build on the
+      <a href="index.html#rules">rules that apply to every meeting</a>. Six of them matter most here.</p>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="glyph">1</div>
+        <div><h3>Be on time</h3>
+        <p>Everyone attends the huddle on time. The Office Manager is responsible for confirming the team is
+        present and identifying anyone who is late or absent. Repeated lateness is addressed outside of the
+        huddle.</p></div>
+      </div>
+
+      <div class="rule">
+        <div class="glyph">2</div>
+        <div><h3>Come prepared</h3>
+        <p>The huddle is not the time to begin reviewing the schedule. Anyone responsible for the schedule
+        reviews their area before the meeting begins, and clinical technicians review their own columns
+        beforehand.</p></div>
+      </div>
+
+      <div class="rule">
+        <div class="glyph">3</div>
+        <div><h3>Bring a notebook</h3>
+        <p>The Front Desk Team and Clinical Team each bring a notebook. Record who was late or absent, what
+        was discussed, the action items for your department, who owns each one, and anything that must be
+        passed to team members arriving later. These notes become the morning huddle minutes.</p></div>
+      </div>
+
+      <div class="rule">
+        <div class="glyph">4</div>
+        <div><h3>Update anyone who arrives later</h3>
+        <p>Employees who begin work after the huddle are still responsible for knowing what was discussed.
+        When they arrive they review the minutes, speak with their team leader if anything is unclear, and
+        confirm responsibilities or changes affecting their schedule. Information should never be lost
+        because someone was not scheduled to attend.</p></div>
+      </div>
+
+      <div class="rule">
+        <div class="glyph">5</div>
+        <div><h3>No phones</h3>
+        <p>Phones are not used during the huddle. Everyone should be listening, participating, and preparing
+        for the day.</p></div>
+      </div>
+
+      <div class="rule">
+        <div class="glyph">6</div>
+        <div><h3>Breakfast before the huddle</h3>
+        <p>Eat before the huddle, not during it. Fifteen minutes requires everyone's full attention.</p></div>
+      </div>
+    </div>
+
+    <h3>Everyone participates</h3>
+    <p class="prose">The huddle is not a presentation given by one person while everyone else listens. Each
+    department is responsible for reviewing its portion of the day and speaking up when something needs
+    attention. If you notice a scheduling problem, patient-flow problem, doctor-time conflict, training
+    issue, or any other concern, bring it up at the huddle. Do not assume someone else noticed it.</p>
+  </div>
+</section>
+
+<section id="prep">
+  <div class="wrap">
+    <h2>Preparation, role by role</h2>
+    <p class="sub">Preparation happens before the huddle begins. The meeting is short because the work is
+    already done when everyone sits down.</p>
+
+    <div class="roles">
+
+      <div class="rolecard">
+        <h3>Office Manager</h3>
+        <p class="role-note">Before the meeting</p>
+        <ul>
+          <li>Confirm staffing for the day</li>
+          <li>Know who is out</li>
+          <li>Know who is arriving later</li>
+          <li>Identify unexpected call-outs</li>
+          <li>Make sure everyone is present for the huddle</li>
+          <li>Be aware of major office-wide schedule issues</li>
+        </ul>
+        <h3 style="margin-top:22px">During the huddle</h3>
+        <p class="role-note">Office-wide announcements limited to today or the immediate future</p>
+        <ul>
+          <li>Staffing changes</li>
+          <li>Office procedures</li>
+          <li>Building issues</li>
+          <li>Meetings and important deadlines</li>
+          <li>Schedule changes</li>
+          <li>Operational announcements</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Long discussions move to another meeting.</p>
+      </div>
+
+      <div class="rolecard">
+        <h3>Treatment Coordinator</h3>
+        <p class="role-note">Schedule-related information that affects office operations</p>
+        <ul>
+          <li>Records that may need a records technician</li>
+          <li>Doctor-time conflicts involving consultations</li>
+          <li>Patients who may require a scan after the consultation</li>
+          <li>Consultations that may create schedule-flow concerns</li>
+          <li>Special scheduling arrangements affecting another department</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Leave out dentist information, the complete primary
+        concern, dental clearance details, and any financial or personal information that does not affect
+        workflow.</p>
+      </div>
+
+      <div class="rolecard">
+        <h3>Lab Team Member</h3>
+        <p class="role-note">The day's lab priorities</p>
+        <ul>
+          <li>Appliances needed for today's appointments</li>
+          <li>Appliances that must be completed urgently</li>
+          <li>Repairs</li>
+          <li>Missing appliances</li>
+          <li>Delayed lab cases</li>
+          <li>Cases that may affect today's schedule</li>
+          <li>Items that need doctor review</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Anything that could delay a patient's appointment
+        belongs in the huddle.</p>
+      </div>
+
+      <div class="rolecard">
+        <h3>Marketing Coordinator</h3>
+        <p class="role-note">Activities that affect the schedule or the team</p>
+        <ul>
+          <li>Office events</li>
+          <li>Photography and video recording</li>
+          <li>Social media filming</li>
+          <li>Community events and visitors</li>
+          <li>Promotions requiring team participation</li>
+          <li>Schedule changes related to marketing</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Routine updates that do not affect the day's operations
+        should not consume huddle time.</p>
+      </div>
+
+      <div class="rolecard">
+        <h3>Financial Coordinator</h3>
+        <p class="role-note">Only what requires action before a patient is seated</p>
+        <ul>
+          <li>Patients the clinical or front desk team must handle differently</li>
+          <li>Example: "Please see me before seating the 2:00 patient"</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Routine collections and financial detail are not
+        discussed with the whole team. Private financial information stays private.</p>
+      </div>
+
+      <div class="rolecard">
+        <h3>Team Lead and Management</h3>
+        <p class="role-note">Management items that affect the team</p>
+        <ul>
+          <li>Interviews occurring that day</li>
+          <li>Training activities</li>
+          <li>Calendar updates</li>
+          <li>New team members and employee shadowing</li>
+          <li>Meetings</li>
+          <li>Changes affecting staffing or workflow</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Keep it relevant to that day's operation.</p>
+      </div>
+
+      <div class="rolecard wide">
+        <h3>Clinic Coordinator and Schedule Coordinator</h3>
+        <p class="role-note">Perform a full schedule scan before every huddle. Review the clinical schedule
+        from beginning to end and leave the huddle with a clear plan for how the clinic will operate.</p>
+
+        <h3 style="margin-top:22px">Staffing conflicts</h3>
+        <ul>
+          <li>More clinical columns than available technicians</li>
+          <li>Technician call-outs</li>
+          <li>Team members arriving late</li>
+          <li>Coverage problems</li>
+          <li>Procedures requiring specific trained team members</li>
+        </ul>
+
+        <h3 style="margin-top:22px">Appointment problems</h3>
+        <p class="role-note">Look for appointments with the wrong type, too little or too much time,
+        incorrect procedure scheduling, missing information, or unexpected doctor time.</p>
+        <ul>
+          <li>A bonding scheduled when the patient should have an adjustment</li>
+          <li>An adjustment that needs substantially more time than scheduled</li>
+          <li>A high-doctor-time procedure placed next to multiple consultations</li>
+          <li>Several high-doctor-time procedures scheduled at the same time</li>
+        </ul>
+
+        <h3 style="margin-top:22px">Doctor-time conflicts</h3>
+        <p class="role-note">Identify periods when the doctor may be needed in several places at once:
+        bondings, repositions, broken brackets, difficult procedures, procedures requiring significant
+        isolation, consultations, and patients requiring extended conversations. Bring these to the team
+        before patients are seated.</p>
+
+        <h3 style="margin-top:22px">Seating and patient flow</h3>
+        <p class="role-note">Plan where patients should be seated to create the best flow, considering which
+        technicians are available, procedure difficulty, doctor-time needs, technician experience, patients
+        needing TLC, and which chairs suit particular procedures.</p>
+      </div>
+
+      <div class="rolecard wide">
+        <h3>Clinical technicians</h3>
+        <p class="role-note">Every technician reviews their column before coming to the huddle. Do not wait
+        until the patient is seated to discover a problem.</p>
+
+        <h3 style="margin-top:22px">Incorrectly scheduled appointments</h3>
+        <p class="role-note">For example, a patient scheduled for a bonding whose treatment notes indicate
+        the next appointment should be an adjustment. Bring it up during the huddle.</p>
+
+        <h3 style="margin-top:22px">Doctor-time conflicts</h3>
+        <p class="role-note">Look at when your patients require the doctor. If several patients in your
+        column need significant doctor time at once, identify the conflict.</p>
+
+        <h3 style="margin-top:22px">Procedures you are not trained to perform</h3>
+        <p class="role-note">Tell the team before the patient arrives if your schedule includes a procedure
+        you are not trained or comfortable performing. This lets a trainer or experienced team member be
+        assigned in advance.</p>
+        <ul>
+          <li>Removing ceramic brackets</li>
+          <li>Band procedures</li>
+          <li>Aligner attachments</li>
+          <li>Specialized appliance procedures</li>
+          <li>Procedures you have not yet completed independently</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Never wait until the procedure has started to announce
+        that assistance is required.</p>
+
+        <h3 style="margin-top:22px">Missing notes or lack of direction</h3>
+        <ul>
+          <li>Missing previous notes</li>
+          <li>Unclear next-visit instructions</li>
+          <li>Missing treatment directions</li>
+          <li>Treatment cards that do not explain what happens next</li>
+        </ul>
+        <p class="role-note" style="margin-top:12px">Bring these to the huddle so they can be clarified
+        before the patient is seated.</p>
+
+        <h3 style="margin-top:22px">Prepare for your first patient</h3>
+        <p class="role-note">Before leaving the huddle you should know who your first patient is, what
+        procedure is being performed, what materials are needed, whether the doctor will be needed, and
+        whether any special preparation is necessary. Your chair and tray should be prepared accordingly.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="topics">
+  <div class="wrap">
+    <h2>Key topics to identify during the huddle</h2>
+    <p class="sub">Six things that break a day. Most of them are visible in the schedule before the day
+    starts.</p>
+
+    <div class="topics">
+
+      <div class="topic">
+        <h3><span class="n">1</span>Incorrectly scheduled appointments</h3>
+        <p>Some appointments are correctly labeled but need more time than was scheduled. Identify them
+        before the day starts and decide whether additional time can be added, another technician can
+        assist, the patient should be seated differently, or the appointment needs to be modified.</p>
+        <p>Others have the wrong appointment type entirely: a bonding scheduled instead of an adjustment,
+        an adjustment scheduled when a procedure is actually needed, records scheduled incorrectly, or an
+        appliance procedure under the wrong type. Correct these before the patient arrives whenever
+        possible.</p>
+      </div>
+
+      <div class="topic">
+        <h3><span class="n">2</span>Doctor-time crunches</h3>
+        <p>Look for periods where the doctor is scheduled to perform several doctor-intensive procedures at
+        once: multiple bondings, repositions, consultations, broken brackets, difficult procedures, or
+        patients requiring extensive explanation.</p>
+        <p>Ask where the doctor is likely to get backed up today, then build the plan before the schedule
+        reaches that point.</p>
+      </div>
+
+      <div class="topic">
+        <h3><span class="n">3</span>Difficult or TLC patients</h3>
+        <p>Some patients require additional time, explanation, patience, or assistance. These patients
+        should be scheduled with a Team Leader, an experienced technician, or another designated clinical
+        leader.</p>
+        <p>If that is not possible, a Team Leader or clinical leader evaluates the situation and helps
+        determine the best plan. The goal is appropriate care for the patient without unnecessary
+        disruption to the rest of the clinic.</p>
+      </div>
+
+      <div class="topic">
+        <h3><span class="n">4</span>More columns than technicians</h3>
+        <p>This happens through lack of communication about someone being out, last-minute call-outs,
+        scheduling errors, or unexpected staffing changes. Do not wait until patients are arriving to work
+        out how the clinic will handle it.</p>
+        <p>During the huddle, determine which columns remain open, which technicians will cover them, which
+        patients may need to be moved, whether appointments should be adjusted, whether team leaders need to
+        assist, and where doctor time will be prioritized. Everyone should understand the coverage plan
+        before the first patient.</p>
+      </div>
+
+      <div class="topic">
+        <h3><span class="n">5</span>Emergencies</h3>
+        <p>Not every emergency requires the same amount of time. Determine what type is being seen and
+        schedule accordingly: a poking wire, loose bracket, broken or lost appliance, significant discomfort,
+        trauma, or another orthodontic concern.</p>
+        <p>The type of emergency determines appointment length, whether a technician can manage the initial
+        evaluation, whether significant doctor time is required, which chair is appropriate, and whether the
+        schedule needs adjusting.</p>
+      </div>
+
+      <div class="topic">
+        <h3><span class="n">6</span>Patient deadlines</h3>
+        <p>Identify patients who must leave by a certain time: school and work commitments, transportation
+        schedules, medical appointments, flights and travel, or parent scheduling limitations.</p>
+        <p>If the team knows in advance, the schedule can usually be managed around it. Do not discover the
+        deadline when the patient is already late leaving.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <h2>How the fifteen minutes are spent</h2>
+    <p class="sub">Follow the same sequence every day so nothing gets skipped and nobody has to wonder what
+    comes next.</p>
+
+    <ul class="agenda">
+      <li>
+        <span class="t">Minute 0 to 2</span>
+        <h3>Staffing and daily overview</h3>
+        <p class="who">Office Manager and Clinic Coordinator</p>
+        <ul>
+          <li>Who is out</li>
+          <li>Who is arriving late</li>
+          <li>Who is arriving later in the day</li>
+          <li>Unexpected call-outs</li>
+          <li>Number of technicians</li>
+          <li>Number of clinical columns</li>
+        </ul>
+      </li>
+
+      <li class="wide">
+        <span class="t">Minute 2 to 7</span>
+        <h3>Clinical schedule</h3>
+        <p class="who">Clinic Coordinator, Schedule Coordinator, and clinical team. This is the largest
+        portion of the huddle.</p>
+        <ul>
+          <li>Incorrectly scheduled appointments</li>
+          <li>Appointments needing additional time</li>
+          <li>Doctor-time conflicts</li>
+          <li>More columns than technicians</li>
+          <li>Seating arrangements</li>
+          <li>Procedures requiring experienced team members</li>
+          <li>Technician training concerns</li>
+          <li>Difficult or TLC patients</li>
+          <li>Emergencies</li>
+          <li>Patient deadlines</li>
+          <li>Missing notes or unclear treatment directions</li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="t">Minute 7 to 9</span>
+        <h3>Treatment Coordinator</h3>
+        <ul>
+          <li>Consultation schedule conflicts</li>
+          <li>Records needs</li>
+          <li>Scan needs</li>
+          <li>Doctor-time concerns</li>
+          <li>Anything affecting clinical or front desk workflow</li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="t">Minute 9 to 10</span>
+        <h3>Lab</h3>
+        <ul>
+          <li>Today's appliance priorities</li>
+          <li>Missing or delayed cases</li>
+          <li>Repairs</li>
+          <li>Cases affecting today's schedule</li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="t">Minute 10 to 11</span>
+        <h3>Financial</h3>
+        <p>Only patients requiring action before they are seated. Routine financial information is not
+        discussed with the whole team.</p>
+      </li>
+
+      <li>
+        <span class="t">Minute 11 to 12</span>
+        <h3>Marketing</h3>
+        <ul>
+          <li>Events</li>
+          <li>Filming and photography</li>
+          <li>Visitors</li>
+          <li>Schedule-related marketing activities</li>
+        </ul>
+      </li>
+
+      <li>
+        <span class="t">Minute 12 to 14</span>
+        <h3>Office Manager and Team Lead</h3>
+        <ul>
+          <li>Important announcements</li>
+          <li>Interviews</li>
+          <li>Training</li>
+          <li>Calendar changes</li>
+          <li>Operational information</li>
+        </ul>
+      </li>
+
+      <li class="wide">
+        <span class="t">Minute 14 to 15</span>
+        <h3>Action review</h3>
+        <p>Before ending, quickly review the most important action items. Every important problem should
+        have an owner and a plan.</p>
+        <ul>
+          <li>"Karina is helping Randy with the ceramic debond."</li>
+          <li>"Chair 4 will be used for the 10:30 bonding."</li>
+          <li>"Dr. Lee has a doctor-time conflict at 11:00, so the 11:00 adjustment will be seated first."</li>
+          <li>"Elizabeth needs to speak with the 2:00 patient before they are seated."</li>
+          <li>"The 3:30 patient must leave by 4:15."</li>
+          <li>"Nataly will cover Yeymy's first two patients."</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="minutes">
+  <div class="wrap">
+    <h2>Morning huddle minutes</h2>
+    <p class="sub no-print">Each team records the important information from the huddle. Print this sheet or
+    copy the headings into your notebook.</p>
+    <p class="no-print"><button class="btn" id="printMinutes">Print the minutes sheet</button></p>
+
+    <div class="minutes">
+      <div class="grid2">
+        <div class="field"><span>Date</span></div>
+        <div class="field"><span>Recorded by</span></div>
+        <div class="field"><span>Team members out</span></div>
+        <div class="field"><span>Team members arriving later</span></div>
+        <div class="field"><span>Late to morning huddle</span></div>
+        <div class="field"><span>Lab priorities</span></div>
+      </div>
+
+      <div class="field"><span>Clinical and schedule issues</span></div>
+      <div class="field"><span>Doctor-time conflicts</span></div>
+      <div class="field"><span>Patients requiring special attention</span></div>
+      <div class="field"><span>Patient deadlines</span></div>
+      <div class="field"><span>Front desk, treatment coordinator, and financial issues</span></div>
+      <div class="field"><span>Marketing and office announcements</span></div>
+
+      <h3>Action items</h3>
+      <table class="blank">
+        <thead><tr><th>Action</th><th>Responsible person</th><th>Done</th></tr></thead>
+        <tbody>
+          <tr><td></td><td></td><td>&#9744;</td></tr>
+          <tr><td></td><td></td><td>&#9744;</td></tr>
+          <tr><td></td><td></td><td>&#9744;</td></tr>
+          <tr><td></td><td></td><td>&#9744;</td></tr>
+          <tr><td></td><td></td><td>&#9744;</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Information to communicate to team members arriving later</h3>
+      <div class="field"><span>&nbsp;</span></div>
+      <div class="field"><span>&nbsp;</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What a successful huddle looks like</h2>
+    <p class="sub">Seven qualities. If the huddle is missing one, it is not working yet.</p>
+    <div class="rules">
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Prepared</h3><p>The schedule has already been reviewed.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Brief</h3><p>The meeting stays close to fifteen minutes.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Specific</h3><p>Discuss actual problems, not vague concerns. Instead of "the afternoon looks
+        busy," say "at 2:00 we have two bondings and a consult requiring doctor time, we need to stagger the
+        seating."</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Participatory</h3><p>Everyone speaks up when they identify something important.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Solution-oriented</h3><p>Do not simply identify problems. Determine what we are going to do
+        about it.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Documented</h3><p>Action items and important information are written down.</p></div></div>
+      <div class="rule"><div class="glyph">&#8226;</div><div>
+        <h3>Communicated</h3><p>Team members arriving later are brought up to speed.</p></div></div>
+    </div>
+
+    <h3>What the morning huddle is not</h3>
+    <ul class="notlist">
+      <li>A social meeting</li>
+      <li>Breakfast time</li>
+      <li>Phone time</li>
+      <li>A lengthy management meeting</li>
+      <li>A place for detailed financial discussion</li>
+      <li>A complete review of every patient</li>
+      <li>A time to begin looking at your schedule</li>
+      <li>A substitute for reading patient notes</li>
+      <li>A meeting where one person talks and everyone else stays silent</li>
+    </ul>
+    <p class="prose" style="margin-top:20px">The team should arrive already familiar with the day's
+    schedule.</p>
+  </div>
+</section>
+
+<section id="standard">
+  <div class="wrap">
+    <h2>The morning huddle standard</h2>
+    <p class="sub">Before we see the first patient, the team should know all sixteen of these.</p>
+    <ul class="checklist two">
+      <li>Who is working today</li>
+      <li>Who is out</li>
+      <li>Who is arriving later</li>
+      <li>Who is covering each clinical column</li>
+      <li>Where major doctor-time conflicts exist</li>
+      <li>Which appointments are scheduled incorrectly</li>
+      <li>Which appointments may require additional time</li>
+      <li>Which patients require TLC or additional explanation</li>
+      <li>Which technicians require assistance or training</li>
+      <li>Which patients have deadlines</li>
+      <li>Which emergencies have been added</li>
+      <li>What the major lab priorities are</li>
+      <li>Whether any patients need to speak with the financial team before seating</li>
+      <li>Whether consultations affect clinical flow</li>
+      <li>Whether marketing activities affect the schedule</li>
+      <li>What today's major action items are</li>
+    </ul>
+    <div class="quote" style="margin-top:28px">If we finish the huddle and discover one of these after the
+    patient is already seated, we ask: could we have identified this during the huddle?
+      <span>If the answer is yes, we need to improve our preparation.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="closer">
+      <h2>Find the problem before the patient finds it for us.</h2>
+      <p>The morning huddle exists so the entire team begins the day with the same information, the same
+      priorities, and a clear plan.</p>
+      <p>Review. Communicate. Plan. Assign. Execute.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="pagenav">
+    <a href="index.html">All meetings</a>
+    <a href="team-meetings.html">Team meeting</a>
+    <a href="quarterly-meetings.html">Quarterly meeting</a>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var btn = document.getElementById('printMinutes');
+    if(!btn) return;
+    function cleanup(){ document.body.classList.remove('print-minutes'); }
+    btn.addEventListener('click', function(){
+      document.body.classList.add('print-minutes');
+      window.addEventListener('afterprint', cleanup, { once: true });
+      window.print();
+      setTimeout(cleanup, 2000);
+    });
+  })();
+</script>
+
+
+<footer class="site">
+  <div class="wrap">Alexandria Orthodontics &middot; Internal team training. Not for distribution outside the practice.</div>
+</footer>
+
+</body>
+</html>
