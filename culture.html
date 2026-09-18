@@ -16,32 +16,47 @@
     --p1:#35c6b4; --p2:#5bb8e0; --p3:#7fc49a; --p4:#e0a458; --p5:#e08a8a;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:118px}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:120px}
   body{margin:0;background:var(--ink);color:var(--text);
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     font-size:17px;line-height:1.65;font-feature-settings:'cv05','cv11'}
   a{color:var(--teal);text-decoration:none}
   a:hover{text-decoration:underline}
-  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
   .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
   .prose{max-width:68ch}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
+  /* ---------- chrome ---------- */
   .topbar{border-bottom:1px solid var(--line);background:rgba(10,24,38,.94);
     backdrop-filter:blur(8px);position:sticky;top:0;z-index:30}
-  .topbar .wrap{display:flex;align-items:center;gap:18px;min-height:58px;flex-wrap:wrap}
+  .topbar .wrap{display:flex;align-items:center;gap:16px;min-height:58px;flex-wrap:wrap}
   .mark{display:flex;align-items:center;gap:10px;font-weight:650;letter-spacing:-.01em;color:var(--text)}
   .mark:hover{text-decoration:none;color:var(--teal)}
   .mark .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
-  .crumbs{margin-left:auto;color:var(--muted);font-size:14.5px}
+  .crumbs{color:var(--muted);font-size:14.5px;margin-left:auto}
+
+  .pres-toggle{display:inline-flex;align-items:center;gap:9px;background:transparent;
+    border:1px solid var(--teal);color:var(--teal);border-radius:999px;padding:7px 16px;
+    font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .pres-toggle:hover{background:rgba(53,198,180,.12)}
+  .pres-toggle .led{width:7px;height:7px;border-radius:50%;background:var(--teal-dim);flex:none}
+  body.presenting .pres-toggle{background:var(--teal);color:#06202c;border-color:var(--teal)}
+  body.presenting .pres-toggle .led{background:#06202c}
 
   .jump{position:sticky;top:58px;z-index:25;background:rgba(16,38,57,.96);
     backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .jump .wrap{display:flex;gap:22px;overflow-x:auto;padding-top:12px;padding-bottom:12px;
     font-size:14px;scrollbar-width:thin}
-  .jump a{color:var(--muted);white-space:nowrap}
+  .jump a{color:var(--muted);white-space:nowrap;border-bottom:2px solid transparent;
+    padding-bottom:2px}
   .jump a:hover{color:var(--teal);text-decoration:none}
   .jump a .n{color:var(--teal);font-weight:640;margin-right:5px}
+  .jump a.active{color:var(--text);border-bottom-color:var(--pc,var(--teal))}
+  .jump a.active .n{color:var(--pc,var(--teal))}
 
+  /* ---------- hero ---------- */
   header.hero{padding:70px 0 58px;border-bottom:1px solid var(--line)}
   h1{font-size:clamp(2.1rem,5.2vw,3.15rem);line-height:1.06;letter-spacing:-.03em;
     font-weight:660;margin:0 0 18px}
@@ -54,28 +69,41 @@
   .sub{color:var(--muted);margin:0 0 32px;max-width:64ch}
   p{margin:0 0 16px}
 
-  /* ---- pillar overview ---- */
-  .pillars{
-    display:grid;
-    grid-template-columns:repeat(5,minmax(0,1fr));
-    gap:14px;
-  }
-  .pcard{min-width:0}
-  @media (max-width:900px){
-    .pillars{grid-template-columns:repeat(3,minmax(0,1fr))}
-  }
-  @media (max-width:640px){
-    .pillars{grid-template-columns:1fr}
-  }
-  .pcard{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--pc);
-    border-radius:13px;padding:22px 18px;color:var(--text);display:flex;flex-direction:column;
-    height:100%}
+  /* ---------- pillar overview ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .pcard{min-width:0;background:var(--panel);border:1px solid var(--line);
+    border-top:3px solid var(--pc);border-radius:13px;padding:22px 18px;color:var(--text);
+    display:flex;flex-direction:column;height:100%}
   .pcard:hover{text-decoration:none;background:var(--raise);border-color:var(--line-strong)}
   .pcard .n{color:var(--pc);font-size:1.7rem;font-weight:650;line-height:1;display:block;margin-bottom:12px}
   .pcard h3{margin:0 0 6px;font-size:1.06rem;font-weight:650;letter-spacing:.01em}
   .pcard p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+  @media (max-width:900px){.pillars{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:640px){.pillars{grid-template-columns:1fr}}
 
-  /* ---- pillar sections ---- */
+  .guide-btn{display:inline-flex;align-items:center;gap:10px;background:var(--panel);
+    border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:11px 20px;
+    font-size:15px;font-weight:560;margin:0 0 34px}
+  .guide-btn:hover{text-decoration:none;background:rgba(53,198,180,.11)}
+
+  /* ---------- video ---------- */
+  .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;
+    margin:0 0 34px}
+  .video-slot{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;
+    border-top:3px solid var(--pc,var(--teal))}
+  .video-slot[hidden]{display:none}
+  .video-slot .frame{position:relative;width:100%;aspect-ratio:1/1;background:#081220;
+    border:1px solid var(--line-strong);border-radius:10px;overflow:hidden}
+  .video-slot .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-slot .frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    background:#081220}
+  .video-slot .cap{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    margin:13px 2px 0;font-size:14.5px}
+  .video-slot .cap b{font-weight:600}
+  .video-slot .cap span{color:var(--muted);font-size:13px;white-space:nowrap}
+  .pillar-video{max-width:460px;margin:0 0 30px}
+
+  /* ---------- pillar sections ---------- */
   .pillar-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;
     padding-bottom:22px;margin-bottom:30px;border-bottom:1px solid var(--line)}
   .pillar-head .big{font-size:3.4rem;font-weight:650;line-height:.85;color:var(--pc);
@@ -83,8 +111,110 @@
   .pillar-head h2{margin:0 0 6px;font-size:1.9rem;letter-spacing:-.02em}
   .pillar-head .tag{color:var(--muted);margin:0;font-size:1.02rem}
 
-  .core{border-left:3px solid var(--pc);padding:6px 0 6px 20px;margin:0 0 30px;
-    font-size:1.08rem;color:#cfe0ec;max-width:66ch}
+  .stage{background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0));
+    border:1px solid var(--line);border-radius:16px;padding:32px 34px;margin:0 0 34px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+  @media (max-width:640px){.stage{padding:24px 20px}}
+
+  .inspiration{border:1px solid var(--line-strong);border-left:3px solid var(--pc);
+    border-radius:13px;padding:26px 28px;margin:0 0 18px;
+    background:linear-gradient(110deg,rgba(255,255,255,.04),rgba(255,255,255,0))}
+  .inspiration .label{font-size:11.5px;letter-spacing:.16em;color:var(--pc);font-weight:650;
+    display:block;margin-bottom:14px}
+  .inspiration blockquote{margin:0;font-size:clamp(1.15rem,2.2vw,1.42rem);line-height:1.42;
+    color:#dfeaf3;letter-spacing:-.012em}
+  .inspiration cite{display:block;margin-top:14px;font-style:normal;color:var(--muted);font-size:14.5px}
+
+  .ao-perspective{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:20px 24px;margin:0 0 30px}
+  .ao-perspective .label{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-weight:650;
+    display:block;margin-bottom:9px}
+  .ao-perspective p{margin:0;font-size:1.16rem;line-height:1.45;color:var(--text);font-weight:560;
+    letter-spacing:-.012em}
+
+  .means{margin:0 0 32px}
+  .means h3{margin:0 0 10px;font-size:1.04rem;color:var(--pc);letter-spacing:.01em}
+  .means p{margin:0 0 12px;color:#c5d6e4;font-size:1.03rem;max-width:68ch}
+  .means p:last-child{margin-bottom:0}
+  .means ul{margin:14px 0 0;padding-left:20px;color:#c5d6e4;font-size:1.01rem}
+  .means ul li{margin-bottom:7px}
+  .means ul li::marker{color:var(--pc)}
+
+  /* ---------- AO in action ---------- */
+  .action{margin:0 0 32px}
+  .action h3{margin:0 0 14px;font-size:1.04rem;color:var(--pc);letter-spacing:.01em}
+  .action-card{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);
+    border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;margin-bottom:14px}
+  .action-card:last-child{margin-bottom:0}
+  .action-card > div{background:var(--panel);padding:20px 22px}
+  .action-card .lbl{display:block;font-size:11.5px;letter-spacing:.14em;font-weight:650;
+    margin-bottom:8px;color:var(--muted)}
+  .action-card .resp .lbl{color:var(--pc)}
+  .action-card p{margin:0;font-size:1.02rem;line-height:1.5;color:#cfe0ec}
+  @media (max-width:700px){.action-card{grid-template-columns:1fr}}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 32px}
+  @media (max-width:700px){.compare{grid-template-columns:1fr}}
+  .compare > div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .compare .weak{border-top:2px solid var(--rose)}
+  .compare .strong{border-top:2px solid var(--pc)}
+  .compare .lbl{display:block;font-size:11.5px;letter-spacing:.14em;font-weight:650;margin-bottom:9px;
+    color:var(--muted)}
+  .compare .strong .lbl{color:var(--pc)}
+  .compare p{margin:0;font-size:1.01rem;color:#cfe0ec;line-height:1.5}
+
+  .diagnostic{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:8px 22px;margin:0 0 20px}
+  .diagnostic .dq{display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:13px 0;border-bottom:1px solid var(--line);font-size:1.01rem;color:#cfe0ec}
+  .diagnostic .dq:last-child{border-bottom:0}
+  .diagnostic .yes{color:var(--muted);font-weight:600;font-size:14px;white-space:nowrap}
+  .diagnostic .no{color:var(--pc);font-weight:600;font-size:14px;white-space:nowrap}
+
+  /* ---------- reflection ---------- */
+  .reflect{margin:0 0 32px}
+  .reflect h3{margin:0 0 14px;font-size:1.04rem;color:var(--pc);letter-spacing:.01em}
+  .reflect ul{list-style:none;margin:0;padding:0;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px}
+  .reflect li{background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--pc);
+    border-radius:10px;padding:15px 18px;font-size:1.01rem;color:#cfe0ec}
+
+  /* ---------- reveal ---------- */
+  .wwyd{background:var(--panel);border:1px solid var(--line-strong);border-radius:13px;
+    padding:26px 28px;margin:0 0 32px}
+  .wwyd .label{font-size:11.5px;letter-spacing:.16em;color:var(--pc);font-weight:650;
+    display:block;margin-bottom:12px}
+  .wwyd .q{font-size:1.14rem;line-height:1.45;color:var(--text);margin:0 0 18px;max-width:64ch;
+    font-weight:560;letter-spacing:-.01em}
+  .reveal-btn{display:inline-flex;align-items:center;gap:9px;background:transparent;
+    border:1px solid var(--pc);color:var(--pc);border-radius:9px;padding:10px 18px;
+    font-family:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+  .reveal-btn:hover{background:rgba(255,255,255,.05)}
+  .reveal-btn .chev{transition:transform .25s ease}
+  .reveal-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .reveal-body{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:1.06rem;line-height:1.5;color:#cfe0ec;max-width:66ch}
+  .reveal-body[hidden]{display:none}
+
+  .reminder{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pc);
+    border-radius:12px;padding:22px 26px;margin:0}
+  .reminder .label{display:block;color:var(--pc);font-size:11.5px;letter-spacing:.16em;
+    font-weight:650;margin-bottom:8px}
+  .reminder b{font-weight:640;font-size:1.22rem;letter-spacing:-.012em}
+
+  /* ---------- deep dive ---------- */
+  .deep-dive{border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.015);
+    margin:0 0 30px}
+  .deep-dive > summary{list-style:none;cursor:pointer;padding:18px 24px;display:flex;
+    align-items:center;gap:13px;font-weight:600;font-size:1.02rem;color:var(--text);
+    border-radius:13px}
+  .deep-dive > summary::-webkit-details-marker{display:none}
+  .deep-dive > summary:hover{background:rgba(255,255,255,.03)}
+  .deep-dive > summary .chev{color:var(--pc);transition:transform .25s ease;font-size:14px}
+  .deep-dive[open] > summary .chev{transform:rotate(180deg)}
+  .deep-dive[open] > summary{border-bottom:1px solid var(--line);border-radius:13px 13px 0 0}
+  .deep-dive .dd-body{padding:26px 24px 28px}
+  .deep-dive > summary .count{margin-left:auto;color:var(--muted);font-size:13.5px;font-weight:400}
 
   .parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:16px}
   .part{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
@@ -99,24 +229,39 @@
   .part ul.cols li{break-inside:avoid}
   @media (max-width:620px){.part ul.cols{columns:1}}
 
-  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
   @media (max-width:760px){.twocol{grid-template-columns:1fr}}
-  .yes,.no{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+  .yes,.no-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
   .yes{border-top:2px solid var(--pc)}
-  .no{border-top:2px solid var(--rose)}
-  .yes h3,.no h3{margin:0 0 14px;font-size:1.02rem}
-  .yes ul,.no ul{list-style:none;margin:0;padding:0}
-  .yes li,.no li{position:relative;padding:0 0 11px 26px;color:var(--muted);font-size:15px}
-  .yes li:last-child,.no li:last-child{padding-bottom:0}
+  .no-box{border-top:2px solid var(--rose)}
+  .yes h3,.no-box h3{margin:0 0 14px;font-size:1.02rem}
+  .yes ul,.no-box ul{list-style:none;margin:0;padding:0}
+  .yes li,.no-box li{position:relative;padding:0 0 11px 26px;color:var(--muted);font-size:15px}
+  .yes li:last-child,.no-box li:last-child{padding-bottom:0}
   .yes li::before{content:"\2713";position:absolute;left:2px;top:0;color:var(--pc);font-size:14px}
-  .no li::before{content:"\00d7";position:absolute;left:3px;top:-2px;color:var(--rose);font-size:17px}
+  .no-box li::before{content:"\00d7";position:absolute;left:3px;top:-2px;color:var(--rose);font-size:17px}
 
-  .reminder{margin-top:30px;background:var(--panel);border:1px solid var(--line);
-    border-left:3px solid var(--pc);border-radius:12px;padding:20px 24px}
-  .reminder span{display:block;color:var(--pc);font-size:13.5px;font-weight:600;margin-bottom:4px}
-  .reminder b{font-weight:600;font-size:1.06rem}
+  /* ---------- pillar nav ---------- */
+  .pillar-nav{display:none;justify-content:space-between;gap:14px;margin-top:34px;
+    padding-top:26px;border-top:1px solid var(--line)}
+  body.presenting .pillar-nav{display:flex}
+  .pillar-nav a,.pillar-nav span{border:1px solid var(--line-strong);border-radius:10px;
+    padding:11px 18px;font-size:14.5px;color:var(--text);background:var(--panel)}
+  .pillar-nav a:hover{text-decoration:none;border-color:var(--pc);color:var(--pc)}
+  .pillar-nav span{opacity:.35}
 
-  /* ---- misc ---- */
+  .progress{position:fixed;right:22px;bottom:22px;z-index:40;display:none;
+    background:rgba(16,38,57,.97);border:1px solid var(--line-strong);border-radius:999px;
+    padding:10px 20px;font-size:14px;font-weight:600;color:var(--text);
+    box-shadow:0 6px 24px rgba(0,0,0,.4);backdrop-filter:blur(8px)}
+  body.presenting .progress{display:block}
+  .progress b{color:var(--pc,var(--teal))}
+
+  body.presenting .reference-section{display:none}
+  body.presenting .deep-dive{display:none}
+  body.presenting section.pillar{padding:72px 0}
+
+  /* ---------- reference sections ---------- */
   .quote{border-left:3px solid var(--teal);padding:4px 0 4px 20px;margin:22px 0;
     font-size:1.05rem;color:#cfe0ec;max-width:66ch}
   .quote span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
@@ -138,15 +283,6 @@
     padding:5px 13px;font-size:12.5px;font-weight:600;white-space:nowrap;letter-spacing:.02em}
   @media (max-width:620px){.rec{grid-template-columns:1fr}.rec .tagpill{justify-self:start}}
 
-  .equation{background:var(--panel);border:1px solid var(--line);border-radius:13px;
-    padding:30px 32px;max-width:640px}
-  .eq-row{padding:14px 0;border-bottom:1px solid var(--line)}
-  .eq-row:last-of-type{border-bottom:0}
-  .eq-row b{display:block;color:var(--pc);font-size:.95rem;font-weight:650;letter-spacing:.02em;margin-bottom:2px}
-  .eq-row span{color:var(--muted);font-size:15px}
-  .eq-total{margin-top:18px;padding-top:18px;border-top:1px solid var(--line-strong);
-    color:var(--teal);font-weight:640;font-size:1.06rem;letter-spacing:.01em}
-
   .commitment{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media (max-width:760px){.commitment{grid-template-columns:1fr}}
   .cbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px}
@@ -163,6 +299,19 @@
   table.tbl td:first-child{font-weight:560;white-space:nowrap}
   table.tbl td.home{color:var(--teal)}
 
+  /* ---------- closing sequence ---------- */
+  .sequence{display:grid;gap:0;max-width:720px;margin:0 0 34px}
+  .seq-step{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pc);
+    border-radius:12px;padding:20px 26px}
+  .seq-step b{display:block;color:var(--pc);font-size:1.02rem;font-weight:650;letter-spacing:.02em;
+    margin-bottom:3px}
+  .seq-step span{color:#c5d6e4;font-size:1.02rem}
+  .seq-arrow{color:var(--muted);text-align:center;font-size:18px;line-height:1;padding:9px 0}
+
+  .nonneg{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 26px}
+  .nonneg span{border:1px solid var(--teal);color:var(--teal);border-radius:999px;
+    padding:9px 22px;font-size:1.02rem;font-weight:620;letter-spacing:.03em}
+
   .closer{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);
     border-radius:13px;padding:34px 36px}
   .closer h2{margin-bottom:16px;font-size:1.45rem}
@@ -175,25 +324,31 @@
     font-size:15px;color:var(--text);background:var(--panel)}
   .pagenav a:hover{text-decoration:none;border-color:var(--teal);color:var(--teal)}
 
-  .guide-btn{display:inline-flex;align-items:center;gap:10px;background:var(--panel);
-    border:1px solid var(--teal);color:var(--teal);border-radius:10px;padding:11px 20px;
-    font-size:15px;font-weight:560;margin:0 0 34px}
-  .guide-btn:hover{text-decoration:none;background:rgba(53,198,180,.11)}
-  .guide-btn .ic{font-size:15px;line-height:1}
-
   footer.site{border-top:1px solid var(--line);padding:26px 0 46px;color:var(--muted);font-size:14px}
 
-  @media print{.topbar,.jump,.pagenav,footer.site{display:none!important}
-    body{background:#fff;color:#000}}
+  @media print{
+    .topbar,.jump,.pagenav,footer.site,.progress,.pillar-nav,.pres-toggle,
+    .reveal-btn,.video-slot{display:none!important}
+    body{background:#fff;color:#000}
+    .deep-dive{display:block!important}
+    .deep-dive > *{display:block!important}
+    .reveal-body[hidden]{display:block!important}
+    h2,h3{color:#000}
+  }
   @media (max-width:640px){
     body{font-size:16px}
     header.hero{padding:46px 0 42px}
     section{padding:44px 0}
     .pillar-head{grid-template-columns:1fr;gap:10px}
     .pillar-head .big{font-size:2.4rem}
-    .crumbs{width:100%;margin-left:0}
+    .crumbs{width:100%;margin-left:0;order:3}
+    .pres-toggle{margin-left:auto}
+    .progress{right:14px;bottom:14px;padding:8px 16px;font-size:13px}
   }
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important;animation:none!important}
+  }
 </style>
 </head>
 <body>
@@ -202,19 +357,20 @@
   <div class="wrap">
     <a class="mark" href="index.html"><span class="dot"></span>Alexandria Orthodontics Training</a>
     <div class="crumbs">Culture</div>
+    <button class="pres-toggle" id="presToggle" type="button" aria-pressed="false">
+      <span class="led" aria-hidden="true"></span><span id="presLabel">Presentation mode</span>
+    </button>
   </div>
 </nav>
 
 <div class="jump"><div class="wrap">
   <a href="#overview">The AO Culture 5</a>
-  <a href="#own-it"><span class="n">1</span>OWN IT</a>
-  <a href="#find-a-way"><span class="n">2</span>FIND A WAY</a>
-  <a href="#one-team"><span class="n">3</span>ONE TEAM</a>
-  <a href="#better-every-day"><span class="n">4</span>BETTER EVERY DAY</a>
-  <a href="#patient-first"><span class="n">5</span>PATIENT FIRST</a>
-  <a href="#nonnegotiables">Non-negotiables</a>
-  <a href="#behavior">Behavior, not personality</a>
-  <a href="#standard">The standard</a>
+  <a href="#own-it" data-pillar="own-it" style="--pc:var(--p1)"><span class="n">1</span>OWN IT</a>
+  <a href="#find-a-way" data-pillar="find-a-way" style="--pc:var(--p2)"><span class="n">2</span>FIND A WAY</a>
+  <a href="#one-team" data-pillar="one-team" style="--pc:var(--p3)"><span class="n">3</span>ONE TEAM</a>
+  <a href="#better-every-day" data-pillar="better-every-day" style="--pc:var(--p4)"><span class="n">4</span>BETTER EVERY DAY</a>
+  <a href="#patient-first" data-pillar="patient-first" style="--pc:var(--p5)"><span class="n">5</span>PATIENT FIRST</a>
+  <a href="#together">How they work together</a>
 </div></div>
 
 
@@ -230,12 +386,29 @@
 <section id="overview">
   <div class="wrap">
     <h2>Five pillars</h2>
-    <p class="sub">These five incorporate the original Alexandria Orthodontics handbook values while more
-    clearly defining the behaviors we expect from one another every day. Our culture should guide the small
-    decisions we make throughout every day.</p>
+    <p class="sub">Use the five pillars as a common language for coaching, huddles, reflection, and
+    day-to-day decisions. The goal is not perfection. The goal is a team that can recognize problems, take
+    responsibility, communicate, improve systems, and protect the patient experience.</p>
 
-    <a class="guide-btn" href="AO_Culture_5_Practical_Guide.pdf" target="_blank" rel="noopener">
-      <span class="ic">&#8595;</span>Download the AO Culture 5 Practical Guide</a>
+    <a class="guide-btn" href="AO_Culture_5_Practical_Guide_Updated.pdf" target="_blank" rel="noopener">
+      <span aria-hidden="true">&#8595;</span>Download the AO Culture 5 Practical Guide</a>
+
+    <div class="video-grid">
+<!-- VIDEO SLOT: intro-mockumentary
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot" id="intro-mockumentary" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
+<!-- VIDEO SLOT: intro-five-pillars
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot" id="intro-five-pillars" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
+    </div>
 
     <div class="pillars">
       <a class="pcard" href="#own-it" style="--pc:var(--p1)">
@@ -261,17 +434,21 @@
       <a class="pcard" href="#patient-first" style="--pc:var(--p5)">
         <span class="n">5</span>
         <h3>PATIENT FIRST</h3>
-        <p>Deliver exceptional care and create raving fans.</p>
+        <p>Quality care. Clear communication. Exceptional experience.</p>
       </a>
     </div>
 
     <div class="quote" style="margin-top:36px">At Alexandria Orthodontics, we own our responsibilities,
     find solutions, support our team, improve every day, and put our patients first.
       <span>The culture in one sentence.</span></div>
+
+    <div class="nonneg" style="margin-top:34px">
+      <span>Respect</span><span>Integrity</span><span>Safety</span><span>Always</span>
+    </div>
   </div>
 </section>
 
-<section id="own-it" style="--pc:var(--p1)">
+<section class="pillar" id="own-it" style="--pc:var(--p1)">
   <div class="wrap">
     <div class="pillar-head">
       <div class="big">1</div>
@@ -281,101 +458,166 @@
       </div>
     </div>
 
-    <div class="core">We take ownership of our responsibilities, our decisions, our communication, our mistakes, and our results. Accountability is not simply admitting that something went wrong. It means understanding your role in the outcome and taking responsibility for what happens next. We do not waste energy deciding whose fault something is. We ask: what is my responsibility here, and what can I do next?</div>
+    <div class="stage">
+      <!-- VIDEO SLOT: own-it-video
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot pillar-video" id="own-it-video" style="--pc:var(--p1)" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
 
-    <div class="parts">
-      <div class="part">
-        <h3>Accountability</h3>
-        <p>We acknowledge and assume responsibility for our actions, decisions, responsibilities, and communication. When we make a mistake, we acknowledge it. When something is our responsibility, we do not wait to be reminded repeatedly. When we agree to do something, we follow through.</p>
+      <div class="ao-perspective">
+        <span class="label">AO PERSPECTIVE</span>
+        <p>A system only works if we keep doing it after the meeting is over.</p>
       </div>
-      <div class="part">
-        <h3>No excuses</h3>
-        <p>There may be legitimate reasons why something happened. There is still a responsibility to solve the problem. Explaining a situation is different from using it as an excuse.</p>
-        <ul class="cols">
-          <li>Nobody told me.</li>
-          <li>That's not my job.</li>
-          <li>I thought someone else was doing it.</li>
-          <li>They didn't do their part.</li>
-          <li>I didn't know.</li>
-          <li>I was busy.</li>
-        </ul>
-        <p>Instead: here is what happened, here is what I could have done differently, and here is what I am going to do now.</p>
+
+      <div class="means">
+        <h3>What this means at AO</h3>
+        <p>OWN IT is not about never making mistakes. It is about recognizing what belongs to us and
+        following it through to completion.</p>
+        <p>A common failure point is not creating a bad system. It is allowing a good system to disappear
+        after two weeks.</p>
       </div>
-      <div class="part">
-        <h3>No shifting blame</h3>
-        <p>Mistakes should lead to learning, not finger-pointing. If three people were involved in a breakdown, all three should examine their own role. Accountability begins with yourself.</p>
+
+      <div class="action">
+        <h3>AO in action</h3>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>End-of-day reports. A process is created, followed for a short time, then slowly abandoned.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>The process has a clear owner and continues without repeated reminders.</p></div>
       </div>
-      <div class="part">
-        <h3>Integrity</h3>
-        <p>We tell the truth even when the truth is uncomfortable. We document accurately. We do not hide mistakes. We do not change the story to make ourselves look better. We communicate problems early enough for someone to help solve them.</p>
-        <p>Integrity means doing the right thing even when nobody is watching.</p>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>The day is ending and the lab may or may not have the scans it needs.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Before leaving, confirm the scans were reviewed and the lab has what it needs. Not &quot;I thought someone else checked them.&quot;</p></div>
       </div>
-      <div class="part">
-        <h3>Reliability</h3>
-        <p>If the team cannot depend on you, the team cannot function effectively.</p>
-        <ul class="cols">
-          <li>Arriving on time or early</li>
-          <li>Being prepared</li>
-          <li>Completing assigned responsibilities</li>
-          <li>Following through without repeated reminders</li>
-          <li>Returning to unfinished tasks</li>
-          <li>Communicating when something cannot be completed</li>
-          <li>Being where you are supposed to be</li>
-          <li>Doing what you said you would do</li>
-        </ul>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A Next Visit note is blank or inaccurate.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Recognize it, correct it, and finish the responsibility rather than hoping someone else catches it.</p></div>
       </div>
-      <div class="part">
-        <h3>Consistency</h3>
-        <p>Once the team agrees on a process, we follow it until it is officially changed. We do not create a different version of the procedure every time we perform it.</p>
-        <ul class="cols">
-          <li>Predictability</li>
-          <li>Quality</li>
-          <li>Safety</li>
-          <li>Efficiency</li>
-          <li>Easier training</li>
-          <li>Better communication</li>
-        </ul>
       </div>
-      <div class="part wide">
-        <h3>Focus</h3>
-        <p>Being present at work means being mentally present as well. We minimize unnecessary distractions and give our attention to the task in front of us. When working with a patient, the patient should feel that they have our attention. When receiving instructions, we listen. When performing a clinical procedure, we focus. When documenting, we document accurately.</p>
+
+    <div class="reflect">
+      <h3>Reflection questions</h3>
+      <ul>
+        <li>What is my responsibility here?</li>
+        <li>Did I complete it?</li>
+        <li>If our system stopped working, did I notice and say something?</li>
+        <li>Am I waiting for someone else to catch the problem?</li>
+      </ul>
+    </div>
+
+    <div class="wwyd">
+      <span class="label">WHAT WOULD YOU DO?</span>
+      <p class="q">What happens when a system works for two weeks and then quietly stops?</p>
+      <button class="reveal-btn" type="button" aria-expanded="false" aria-controls="own-it-reveal">
+        <span class="btn-label">Reveal the AO response</span><span class="chev">&#9662;</span>
+      </button>
+      <div class="reveal-body" id="own-it-reveal" hidden>The system still needs an owner. Recognize that it stopped, restart it, and make the responsibility clear.</div>
+    </div>
+
+      <div class="reminder">
+        <span class="label">SIMPLE AO REMINDER</span>
+        <b>See it. Own it. Finish it.</b>
       </div>
     </div>
 
-    <div class="twocol">
-      <div class="yes">
-        <h3>What OWN IT looks like</h3>
-        <ul>
-        <li>A team member realizes she forgot something: "I missed that. I'll take care of it now, and I'll make sure it is part of my checklist next time."</li>
-        <li>A team member realizes he will not finish an assigned task and tells the appropriate person before it becomes an emergency.</li>
-        <li>A technician notices she documented something incorrectly and corrects it rather than hoping nobody notices.</li>
-        <li>Someone receives constructive feedback and changes the behavior instead of explaining why the feedback should not apply.</li>
-        </ul>
+    <details class="deep-dive">
+      <summary><span class="chev">&#9662;</span>Explore the full standard
+        <span class="count">Accountability, no excuses, integrity, reliability, consistency, focus</span></summary>
+      <div class="dd-body">
+        <div class="parts">
+          <div class="part">
+            <h3>Accountability</h3>
+            <p>We acknowledge and assume responsibility for our actions, decisions, responsibilities, and communication. When we make a mistake, we acknowledge it. When something is our responsibility, we do not wait to be reminded repeatedly. When we agree to do something, we follow through.</p>
+          </div>
+          <div class="part">
+            <h3>No excuses</h3>
+            <p>There may be legitimate reasons why something happened. There is still a responsibility to solve the problem. Explaining a situation is different from using it as an excuse.</p>
+            <ul class="cols">
+              <li>Nobody told me.</li>
+              <li>That's not my job.</li>
+              <li>I thought someone else was doing it.</li>
+              <li>They didn't do their part.</li>
+              <li>I didn't know.</li>
+              <li>I was busy.</li>
+            </ul>
+            <p>Instead: here is what happened, here is what I could have done differently, and here is what I am going to do now.</p>
+          </div>
+          <div class="part">
+            <h3>No shifting blame</h3>
+            <p>Mistakes should lead to learning, not finger-pointing. If three people were involved in a breakdown, all three should examine their own role. Accountability begins with yourself.</p>
+          </div>
+          <div class="part">
+            <h3>Integrity</h3>
+            <p>We tell the truth even when the truth is uncomfortable. We document accurately. We do not hide mistakes. We do not change the story to make ourselves look better. We communicate problems early enough for someone to help solve them.</p>
+            <p>Integrity means doing the right thing even when nobody is watching.</p>
+          </div>
+          <div class="part">
+            <h3>Reliability</h3>
+            <p>If the team cannot depend on you, the team cannot function effectively.</p>
+            <ul class="cols">
+              <li>Arriving on time or early</li>
+              <li>Being prepared</li>
+              <li>Completing assigned responsibilities</li>
+              <li>Following through without repeated reminders</li>
+              <li>Returning to unfinished tasks</li>
+              <li>Communicating when something cannot be completed</li>
+              <li>Being where you are supposed to be</li>
+              <li>Doing what you said you would do</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Consistency</h3>
+            <p>Once the team agrees on a process, we follow it until it is officially changed. We do not create a different version of the procedure every time we perform it.</p>
+            <ul class="cols">
+              <li>Predictability</li>
+              <li>Quality</li>
+              <li>Safety</li>
+              <li>Efficiency</li>
+              <li>Easier training</li>
+              <li>Better communication</li>
+            </ul>
+          </div>
+          <div class="part wide">
+            <h3>Focus</h3>
+            <p>Being present at work means being mentally present as well. We minimize unnecessary distractions and give our attention to the task in front of us. When working with a patient, the patient should feel that they have our attention. When receiving instructions, we listen. When performing a clinical procedure, we focus. When documenting, we document accurately.</p>
+          </div>
+        </div>
+        <div class="twocol">
+          <div class="yes">
+            <h3>What this looks like</h3>
+            <ul>
+            <li>A team member realizes she forgot something: "I missed that. I'll take care of it now, and I'll make sure it is part of my checklist next time."</li>
+            <li>A team member realizes he will not finish an assigned task and tells the appropriate person before it becomes an emergency.</li>
+            <li>A technician notices she documented something incorrectly and corrects it rather than hoping nobody notices.</li>
+            <li>Someone receives constructive feedback and changes the behavior instead of explaining why the feedback should not apply.</li>
+            </ul>
+          </div>
+          <div class="no-box">
+            <h3>What this does not look like</h3>
+            <ul>
+            <li>Blaming the schedule</li>
+            <li>Blaming another department</li>
+            <li>Blaming another team member</li>
+            <li>Hiding mistakes</li>
+            <li>Waiting to be reminded repeatedly</li>
+            <li>Being chronically late</li>
+            <li>Leaving unfinished tasks for someone else without communication</li>
+            <li>Saying "I didn't know" without attempting to learn</li>
+            <li>Ignoring a known problem because nobody specifically assigned it to you</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="no">
-        <h3>What OWN IT does not look like</h3>
-        <ul>
-        <li>Blaming the schedule</li>
-        <li>Blaming another department</li>
-        <li>Blaming another team member</li>
-        <li>Hiding mistakes</li>
-        <li>Waiting to be reminded repeatedly</li>
-        <li>Being chronically late</li>
-        <li>Leaving unfinished tasks for someone else without communication</li>
-        <li>Saying "I didn't know" without attempting to learn</li>
-        <li>Ignoring a known problem because nobody specifically assigned it to you</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reminder">
-      <span>Simple AO reminder</span>
-      <b>See your responsibility. Accept your responsibility. Finish your responsibility.</b>
-    </div>
+    </details>
+    <nav class="pillar-nav" aria-label="Pillar navigation">
+      <span>First pillar</span>
+      <a href="#find-a-way" data-goto="1">Next: FIND A WAY</a>
+    </nav>
   </div>
 </section>
 
-<section id="find-a-way" style="--pc:var(--p2)">
+<section class="pillar" id="find-a-way" style="--pc:var(--p2)">
   <div class="wrap">
     <div class="pillar-head">
       <div class="big">2</div>
@@ -385,110 +627,177 @@
       </div>
     </div>
 
-    <div class="core">We do not simply identify problems. We actively participate in solving them. We want an office filled with people who can think. Autonomy does not mean doing whatever you want. It means developing enough knowledge, judgment, and confidence to handle appropriate problems without immediately transferring every decision to somebody else.</div>
+    <div class="stage">
+      <!-- VIDEO SLOT: find-a-way-video
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot pillar-video" id="find-a-way-video" style="--pc:var(--p2)" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
 
-    <div class="parts">
-      <div class="part wide">
-        <h3>Three questions to ask first</h3>
-        <p>Before saying "I don't know," ask: how can I find out?</p>
-        <p>Before saying "I can't do this," ask: what can I try?</p>
-        <p>Before handing a problem to someone else, ask: what have I already done to solve it?</p>
+      <div class="ao-perspective">
+        <span class="label">AO PERSPECTIVE</span>
+        <p>A workaround gets us through the moment. A solution keeps the problem from coming back.</p>
       </div>
-      <div class="part">
-        <h3>Initiative</h3>
-        <p>Do not wait to be told every obvious next step. If you see something that needs to be done and you are capable of doing it, take appropriate action. Initiative means looking one step ahead.</p>
-        <ul>
-          <li>What needs to happen next?</li>
-          <li>What will the doctor need?</li>
-          <li>What will my teammate need?</li>
-          <li>What will the patient need?</li>
-          <li>What can I prepare now?</li>
-          <li>What problem is likely to occur next, and can I prevent it?</li>
-        </ul>
+
+      <div class="means">
+        <h3>What this means at AO</h3>
+        <p>Find a Way means we do not stop at identifying the problem. We use the correct resources, create
+        a safe short-term plan when needed, and start the real solution before the problem becomes
+        larger.</p>
       </div>
-      <div class="part">
-        <h3>Autonomy</h3>
-        <p>We want team members who learn how to make appropriate decisions. Early in training you will need help. As you gain experience, the goal is to require less supervision for routine situations. Growth should produce greater independence.</p>
+
+      <div class="compare">
+        <div class="weak">
+          <span class="lbl">TEMPORARY WORKAROUND</span>
+          <p>"Use another chair."</p>
+        </div>
+        <div class="strong">
+          <span class="lbl">FIND A WAY</span>
+          <p>"Use another chair for now. I documented the problem, contacted the right person, and the
+          repair is already moving."</p>
+        </div>
       </div>
-      <div class="part">
-        <h3>Resourcefulness</h3>
-        <p>Before escalating a routine question, consider the resources available to you.</p>
-        <ul>
-          <li>Have I checked the training materials?</li>
-          <li>Have I reviewed the procedure?</li>
-          <li>Have I checked the patient's chart?</li>
-          <li>Have I looked at the treatment card?</li>
-          <li>Have I checked the schedule?</li>
-          <li>Have I reviewed our protocol?</li>
-          <li>Have I asked the appropriate team member?</li>
-          <li>Have I attempted to reason through the problem?</li>
-        </ul>
-        <p>Resourcefulness does not mean guessing. It means making a reasonable effort to find the correct answer.</p>
+
+      <div class="action">
+        <h3>AO in action</h3>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A computer at a clinical chair is broken. Another chair gets us through the next patient, but the lost capacity will hurt when the clinic gets busy.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Report the problem, fill out the equipment form, identify the specialist who owns the repair, and start the fix early.</p></div>
       </div>
-      <div class="part">
-        <h3>Hunger</h3>
-        <p>We want people who are hungry to improve.</p>
-        <ul>
-          <li>Learn something new</li>
-          <li>Take on greater responsibility</li>
-          <li>Develop new skills</li>
-          <li>Become faster</li>
-          <li>Become more accurate</li>
-          <li>Help another department</li>
-          <li>Understand the bigger picture</li>
-        </ul>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>An upper IDB tray did not print correctly.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Communicate the issue, prepare what can be prepared, use the trays that are ready, reprint what is needed, and provide a realistic ETA.</p></div>
       </div>
-      <div class="part">
-        <h3>Avoiding complacency</h3>
-        <p>Being capable today does not guarantee that you will remain excellent tomorrow. We should never reach the point where we believe we are good enough and no longer need to improve. There is always another level.</p>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>The problem involves patient safety or a decision outside your authority.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Escalate it. Resourcefulness does not mean guessing or working outside your role. Knowing when to ask for help is itself a skill.</p></div>
       </div>
-      <div class="part wide">
-        <h3>An important distinction</h3>
-        <p>Resourcefulness does not mean never asking for help. It means trying to understand and solve appropriate problems before unnecessarily transferring them to someone else.</p>
-        <p>Immediate escalation is absolutely appropriate in situations involving:</p>
-        <ul class="cols">
-          <li>Patient safety</li>
-          <li>Clinical concerns outside your responsibility</li>
-          <li>Emergencies</li>
-          <li>Significant patient complaints</li>
-          <li>Uncertainty that could cause harm</li>
-          <li>Financial or administrative decisions outside your authority</li>
-        </ul>
-        <p>Knowing when to ask for help is itself a skill.</p>
+      </div>
+
+    <div class="reflect">
+      <h3>Three questions to ask first</h3>
+      <ul>
+        <li>Before saying "I don't know," ask: how can I find out?</li>
+        <li>Before saying "I can't do this," ask: what can I try?</li>
+        <li>Before handing a problem to someone else, ask: what have I already done to solve it?</li>
+      </ul>
+    </div>
+
+    <div class="wwyd">
+      <span class="label">WHAT WOULD YOU DO?</span>
+      <p class="q">The chair computer breaks at 10 AM. Is moving to another chair the solution?</p>
+      <button class="reveal-btn" type="button" aria-expanded="false" aria-controls="find-a-way-reveal">
+        <span class="btn-label">Reveal the AO response</span><span class="chev">&#9662;</span>
+      </button>
+      <div class="reveal-body" id="find-a-way-reveal" hidden>It is a temporary workaround. Start the repair process now, before the afternoon rush.</div>
+    </div>
+
+      <div class="reminder">
+        <span class="label">SIMPLE AO REMINDER</span>
+        <b>Solve today's problem without creating tomorrow's problem.</b>
       </div>
     </div>
 
-    <div class="twocol">
-      <div class="yes">
-        <h3>What FIND A WAY looks like</h3>
-        <ul>
-        <li>A tech notices a problem, checks the chart, checks the protocol, tries the appropriate solution, then approaches the coordinator: "Here's the problem. Here's what I checked. Here's what I think we should do."</li>
-        <li>Someone looks one step ahead and prepares what the doctor, the teammate, or the patient will need next.</li>
-        <li>A question gets answered by checking the training resource instead of interrupting someone else.</li>
-        <li>A team member escalates immediately when the issue involves patient safety.</li>
-        </ul>
+    <details class="deep-dive">
+      <summary><span class="chev">&#9662;</span>Explore the full standard
+        <span class="count">Initiative, autonomy, resourcefulness, hunger, when to escalate</span></summary>
+      <div class="dd-body">
+        <div class="parts">
+          <div class="part">
+            <h3>Initiative</h3>
+            <p>Do not wait to be told every obvious next step. If you see something that needs to be done and you are capable of doing it, take appropriate action. Initiative means looking one step ahead.</p>
+            <ul>
+              <li>What needs to happen next?</li>
+              <li>What will the doctor need?</li>
+              <li>What will my teammate need?</li>
+              <li>What will the patient need?</li>
+              <li>What can I prepare now?</li>
+              <li>What problem is likely to occur next, and can I prevent it?</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Autonomy</h3>
+            <p>We want team members who learn how to make appropriate decisions. Early in training you will need help. As you gain experience, the goal is to require less supervision for routine situations. Growth should produce greater independence.</p>
+          </div>
+          <div class="part">
+            <h3>Resourcefulness</h3>
+            <p>Before escalating a routine question, consider the resources available to you.</p>
+            <ul>
+              <li>Have I checked the training materials?</li>
+              <li>Have I reviewed the procedure?</li>
+              <li>Have I checked the patient's chart?</li>
+              <li>Have I looked at the treatment card?</li>
+              <li>Have I checked the schedule?</li>
+              <li>Have I reviewed our protocol?</li>
+              <li>Have I asked the appropriate team member?</li>
+              <li>Have I attempted to reason through the problem?</li>
+            </ul>
+            <p>Resourcefulness does not mean guessing. It means making a reasonable effort to find the correct answer.</p>
+          </div>
+          <div class="part">
+            <h3>Hunger</h3>
+            <p>We want people who are hungry to improve.</p>
+            <ul>
+              <li>Learn something new</li>
+              <li>Take on greater responsibility</li>
+              <li>Develop new skills</li>
+              <li>Become faster</li>
+              <li>Become more accurate</li>
+              <li>Help another department</li>
+              <li>Understand the bigger picture</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Avoiding complacency</h3>
+            <p>Being capable today does not guarantee that you will remain excellent tomorrow. We should never reach the point where we believe we are good enough and no longer need to improve. There is always another level.</p>
+          </div>
+          <div class="part wide">
+            <h3>When to escalate immediately</h3>
+            <p>Resourcefulness does not mean never asking for help. Immediate escalation is absolutely appropriate in situations involving:</p>
+            <ul class="cols">
+              <li>Patient safety</li>
+              <li>Clinical concerns outside your responsibility</li>
+              <li>Emergencies</li>
+              <li>Significant patient complaints</li>
+              <li>Uncertainty that could cause harm</li>
+              <li>Financial or administrative decisions outside your authority</li>
+            </ul>
+          </div>
+        </div>
+        <div class="twocol">
+          <div class="yes">
+            <h3>What this looks like</h3>
+            <ul>
+            <li>A tech notices a problem, checks the chart, checks the protocol, tries the appropriate solution, then approaches the coordinator: "Here's the problem. Here's what I checked. Here's what I think we should do."</li>
+            <li>Someone looks one step ahead and prepares what the doctor, the teammate, or the patient will need next.</li>
+            <li>A question gets answered by checking the training resource instead of interrupting someone else.</li>
+            <li>A team member escalates immediately when the issue involves patient safety.</li>
+            </ul>
+          </div>
+          <div class="no-box">
+            <h3>What this does not look like</h3>
+            <ul>
+            <li>"I don't know what to do," with nothing attempted first</li>
+            <li>Guessing instead of checking the correct answer</li>
+            <li>Transferring every routine decision to someone else</li>
+            <li>Waiting to be told each obvious next step</li>
+            <li>Believing you are good enough and no longer need to improve</li>
+            <li>Treating established systems as optional while calling it initiative</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="no">
-        <h3>What FIND A WAY does not look like</h3>
-        <ul>
-        <li>"I don't know what to do," with nothing attempted first</li>
-        <li>Guessing instead of checking the correct answer</li>
-        <li>Transferring every routine decision to someone else</li>
-        <li>Waiting to be told each obvious next step</li>
-        <li>Believing you are good enough and no longer need to improve</li>
-        <li>Treating established systems as optional while calling it initiative</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reminder">
-      <span>Simple AO reminder</span>
-      <b>Think first. Use your resources. Bring solutions, not just problems.</b>
-    </div>
+    </details>
+    <nav class="pillar-nav" aria-label="Pillar navigation">
+      <a href="#own-it" data-goto="0">Previous: OWN IT</a>
+      <a href="#one-team" data-goto="2">Next: ONE TEAM</a>
+    </nav>
   </div>
 </section>
 
-<section id="one-team" style="--pc:var(--p3)">
+<section class="pillar" id="one-team" style="--pc:var(--p3)">
   <div class="wrap">
     <div class="pillar-head">
       <div class="big">3</div>
@@ -498,122 +807,193 @@
       </div>
     </div>
 
-    <div class="core">We help each other no matter what. Alexandria Orthodontics does not function as a collection of individuals working independently. We function as one team working toward one goal. The success of the clinic matters more than whether something technically belongs to my area.</div>
+    <div class="stage">
+      <!-- VIDEO SLOT: one-team-video
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot pillar-video" id="one-team-video" style="--pc:var(--p3)" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
 
-    <div class="parts">
-      <div class="part">
-        <h3>Teamwork</h3>
-        <p>The question is not simply whether I am caught up. The better question is whether we are caught up. When your responsibilities are under control, look around. Someone else may need help.</p>
+      <div class="inspiration">
+        <span class="label">INSPIRATION</span>
+        <blockquote>The strength of the team is each individual member. The strength of each member is
+        the team.</blockquote>
+        <cite>Phil Jackson</cite>
       </div>
-      <div class="part">
-        <h3>Support</h3>
-        <p>If someone is struggling, we do not stand by and watch. Sometimes support means physically assisting. Sometimes it means answering a question. Sometimes it means taking over a responsibility. Sometimes it means simply recognizing that someone is overwhelmed and asking what you can do.</p>
+
+      <div class="ao-perspective">
+        <span class="label">AO PERSPECTIVE</span>
+        <p>The patient sees one office. They should experience one team.</p>
       </div>
-      <div class="part">
-        <h3>Communication</h3>
-        <p>Good teamwork depends on communication. That means communicating early, clearly, directly, respectfully, and to the correct person.</p>
-        <p>Communication should prevent surprises. A problem communicated early is often manageable. The same problem communicated ten minutes later may become an emergency.</p>
+
+      <div class="means">
+        <h3>What this means at AO</h3>
+        <p>One of our biggest opportunities is reducing the separation between Front Desk and Treatment
+        Coordination on one side and the Clinical Team on the other. Doctors should not have to be the
+        constant bridge carrying information from one side of the office to the other.</p>
       </div>
-      <div class="part">
-        <h3>Delegation</h3>
-        <p>Delegation is not dumping work on someone else. Good delegation involves:</p>
-        <ul>
-          <li>Clearly identifying what needs to happen</li>
-          <li>Identifying who is responsible</li>
-          <li>Confirming that the person understands</li>
-          <li>Communicating important context</li>
-          <li>Following up when appropriate</li>
-        </ul>
+
+      <div class="action">
+        <h3>AO in action</h3>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>Yeymy needs a scan for an indirect bonding patient so she can bring her next consultation back, and the clinical team is busy.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>She tells Jocelyn what she needs. Jocelyn coordinates with the clinical team, a tech responds and helps with the scan, and the doctor never has to serve as the communication bridge.</p></div>
       </div>
-      <div class="part">
-        <h3>Closed-loop communication</h3>
-        <p>When something important is communicated, there should be acknowledgment.</p>
-        <p>"Chair 3 has two broken brackets and will need Dr. Lee in approximately three minutes."</p>
-        <p>"Understood. Chair 3 first. I'll transition Dr. Lee when you're ready."</p>
-        <p>That closes the communication loop.</p>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>Your own column is caught up while another area is underwater.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>The question is not only &quot;Is my column caught up?&quot; The better question is &quot;Are we caught up?&quot;</p></div>
       </div>
-      <div class="part">
-        <h3>Respect</h3>
-        <p>We communicate professionally even when we are busy, frustrated, behind, stressed, tired, or disagreeing. Stress does not give us permission to disrespect one another.</p>
-        <ul class="cols">
-          <li>Tone of voice</li>
-          <li>Word choice</li>
-          <li>Listening</li>
-          <li>Body language</li>
-          <li>Allowing someone to finish speaking</li>
-          <li>Giving feedback appropriately</li>
-          <li>Receiving feedback professionally</li>
-        </ul>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient tells the clinical team they strongly prefer appointments after 3:30.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Communicate that preference to the front desk so the patient does not have to repeat the conversation at checkout.</p></div>
       </div>
-      <div class="part">
-        <h3>Diversity</h3>
-        <p>Different backgrounds, experiences, personalities, perspectives, and strengths make the team stronger. We treat people fairly and respectfully. People should feel that they belong on the team and that their contributions matter.</p>
       </div>
-      <div class="part">
-        <h3>Psychological safety</h3>
-        <p>Team members should be comfortable saying any of these out loud:</p>
-        <ul>
-          <li>I made a mistake.</li>
-          <li>I need help.</li>
-          <li>I don't understand this.</li>
-          <li>I think something may be unsafe.</li>
-          <li>I have an idea.</li>
-          <li>I see a potential problem.</li>
-        </ul>
-        <p>People should not hide concerns because they are afraid of being embarrassed.</p>
-      </div>
-      <div class="part wide">
-        <h3>Physical and clinical safety</h3>
-        <p>Safety is everyone's responsibility. If you notice something unsafe, speak up. Safety is not exclusively the responsibility of the person performing the procedure.</p>
-        <ul class="cols">
-          <li>Infection control</li>
-          <li>Patient positioning</li>
-          <li>Instrument handling</li>
-          <li>Sharps</li>
-          <li>Equipment</li>
-          <li>Clinical procedures</li>
-          <li>Workplace hazards</li>
-          <li>Communication breakdowns</li>
-        </ul>
+
+    <div class="reflect">
+      <h3>Questions to ask</h3>
+      <ul>
+        <li>Who needs this information besides me?</li>
+        <li>Is another department struggling while I have capacity to help?</li>
+        <li>Am I protecting only my workflow, or the workflow of the office?</li>
+        <li>Does the doctor really need to be the messenger here?</li>
+      </ul>
+    </div>
+
+    <div class="wwyd">
+      <span class="label">WHAT WOULD YOU DO?</span>
+      <p class="q">Treatment Coordination needs a scan while the clinical team is busy. Whose problem is it?</p>
+      <button class="reveal-btn" type="button" aria-expanded="false" aria-controls="one-team-reveal">
+        <span class="btn-label">Reveal the AO response</span><span class="chev">&#9662;</span>
+      </button>
+      <div class="reveal-body" id="one-team-reveal" hidden>The office's problem. Communicate, coordinate, and use available capacity across teams.</div>
+    </div>
+
+      <div class="reminder">
+        <span class="label">SIMPLE AO REMINDER</span>
+        <b>Different roles. Same patient. Same team.</b>
       </div>
     </div>
 
-    <div class="twocol">
-      <div class="yes">
-        <h3>What ONE TEAM looks like</h3>
-        <ul>
-        <li>Your area is caught up, so you help the person next to you.</li>
-        <li>A concern gets raised early, while it is still manageable.</li>
-        <li>An important instruction is acknowledged back, so the loop is closed.</li>
-        <li>Someone speaks up about a safety concern in another person's procedure.</li>
-        <li>A new team member feels able to say "I don't understand this" without embarrassment.</li>
-        </ul>
+    <details class="deep-dive">
+      <summary><span class="chev">&#9662;</span>Explore the full standard
+        <span class="count">Teamwork, support, communication, delegation, respect, psychological safety, safety</span></summary>
+      <div class="dd-body">
+        <div class="parts">
+          <div class="part">
+            <h3>Teamwork</h3>
+            <p>The question is not simply whether I am caught up. The better question is whether we are caught up. When your responsibilities are under control, look around. Someone else may need help.</p>
+          </div>
+          <div class="part">
+            <h3>Support</h3>
+            <p>If someone is struggling, we do not stand by and watch. Sometimes support means physically assisting. Sometimes it means answering a question. Sometimes it means taking over a responsibility. Sometimes it means simply recognizing that someone is overwhelmed and asking what you can do.</p>
+          </div>
+          <div class="part">
+            <h3>Communication</h3>
+            <p>Good teamwork depends on communication. That means communicating early, clearly, directly, respectfully, and to the correct person.</p>
+            <p>Communication should prevent surprises. A problem communicated early is often manageable. The same problem communicated ten minutes later may become an emergency.</p>
+          </div>
+          <div class="part">
+            <h3>Delegation</h3>
+            <p>Delegation is not dumping work on someone else. Good delegation involves:</p>
+            <ul>
+              <li>Clearly identifying what needs to happen</li>
+              <li>Identifying who is responsible</li>
+              <li>Confirming that the person understands</li>
+              <li>Communicating important context</li>
+              <li>Following up when appropriate</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Closed-loop communication</h3>
+            <p>When something important is communicated, there should be acknowledgment.</p>
+            <p>"Chair 3 has two broken brackets and will need Dr. Lee in approximately three minutes."</p>
+            <p>"Understood. Chair 3 first. I'll transition Dr. Lee when you're ready."</p>
+            <p>That closes the communication loop.</p>
+          </div>
+          <div class="part">
+            <h3>Respect</h3>
+            <p>We communicate professionally even when we are busy, frustrated, behind, stressed, tired, or disagreeing. Stress does not give us permission to disrespect one another.</p>
+            <ul class="cols">
+              <li>Tone of voice</li>
+              <li>Word choice</li>
+              <li>Listening</li>
+              <li>Body language</li>
+              <li>Allowing someone to finish speaking</li>
+              <li>Giving feedback appropriately</li>
+              <li>Receiving feedback professionally</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Diversity</h3>
+            <p>Different backgrounds, experiences, personalities, perspectives, and strengths make the team stronger. We treat people fairly and respectfully. People should feel that they belong on the team and that their contributions matter.</p>
+          </div>
+          <div class="part">
+            <h3>Psychological safety</h3>
+            <p>Team members should be comfortable saying any of these out loud:</p>
+            <ul>
+              <li>I made a mistake.</li>
+              <li>I need help.</li>
+              <li>I don't understand this.</li>
+              <li>I think something may be unsafe.</li>
+              <li>I have an idea.</li>
+              <li>I see a potential problem.</li>
+            </ul>
+            <p>People should not hide concerns because they are afraid of being embarrassed.</p>
+          </div>
+          <div class="part wide">
+            <h3>Physical and clinical safety</h3>
+            <p>Safety is everyone's responsibility. If you notice something unsafe, speak up. Safety is not exclusively the responsibility of the person performing the procedure.</p>
+            <ul class="cols">
+              <li>Infection control</li>
+              <li>Patient positioning</li>
+              <li>Instrument handling</li>
+              <li>Sharps</li>
+              <li>Equipment</li>
+              <li>Clinical procedures</li>
+              <li>Workplace hazards</li>
+              <li>Communication breakdowns</li>
+            </ul>
+          </div>
+        </div>
+        <div class="twocol">
+          <div class="yes">
+            <h3>What this looks like</h3>
+            <ul>
+            <li>Your area is caught up, so you help the person next to you.</li>
+            <li>A concern gets raised early, while it is still manageable.</li>
+            <li>An important instruction is acknowledged back, so the loop is closed.</li>
+            <li>Someone speaks up about a safety concern in another person's procedure.</li>
+            <li>A new team member feels able to say "I don't understand this" without embarrassment.</li>
+            </ul>
+          </div>
+          <div class="no-box">
+            <h3>What this does not look like</h3>
+            <ul>
+            <li>"That's not my job."</li>
+            <li>Watching someone become overwhelmed</li>
+            <li>Withholding information</li>
+            <li>Gossiping</li>
+            <li>Talking disrespectfully about teammates</li>
+            <li>Passive-aggressive communication</li>
+            <li>Failing to communicate because "they should have known"</li>
+            <li>Refusing to help because your own work is complete</li>
+            <li>Creating unnecessary conflict between departments</li>
+            <li>Blaming instead of solving</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="no">
-        <h3>What ONE TEAM does not look like</h3>
-        <ul>
-        <li>"That's not my job."</li>
-        <li>Watching someone become overwhelmed</li>
-        <li>Withholding information</li>
-        <li>Gossiping</li>
-        <li>Talking disrespectfully about teammates</li>
-        <li>Passive-aggressive communication</li>
-        <li>Failing to communicate because "they should have known"</li>
-        <li>Refusing to help because your own work is complete</li>
-        <li>Creating unnecessary conflict between departments</li>
-        <li>Blaming instead of solving</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reminder">
-      <span>Simple AO reminder</span>
-      <b>Communicate early. Help quickly. Treat people with respect.</b>
-    </div>
+    </details>
+    <nav class="pillar-nav" aria-label="Pillar navigation">
+      <a href="#find-a-way" data-goto="1">Previous: FIND A WAY</a>
+      <a href="#better-every-day" data-goto="3">Next: BETTER EVERY DAY</a>
+    </nav>
   </div>
 </section>
 
-<section id="better-every-day" style="--pc:var(--p4)">
+<section class="pillar" id="better-every-day" style="--pc:var(--p4)">
   <div class="wrap">
     <div class="pillar-head">
       <div class="big">4</div>
@@ -623,243 +1003,426 @@
       </div>
     </div>
 
-    <div class="core">We should be better tomorrow because of what we learned today. We do not expect perfection. We expect progress. Compare yourself to who you were yesterday, not to who someone else is today. Every mistake, challenge, delay, complaint, training opportunity, and difficult patient interaction can teach us something.</div>
+    <div class="stage">
+      <!-- VIDEO SLOT: better-every-day-video
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot pillar-video" id="better-every-day-video" style="--pc:var(--p4)" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
 
-    <div class="parts">
-      <div class="part">
-        <h3>Continuous improvement</h3>
-        <p>We continually develop:</p>
-        <ul class="cols">
-          <li>Clinical skills</li>
-          <li>Communication skills</li>
-          <li>Efficiency</li>
-          <li>Leadership skills</li>
-          <li>Technical knowledge</li>
-          <li>Patient-service skills</li>
-          <li>Systems</li>
-          <li>Processes</li>
-        </ul>
+      <div class="inspiration">
+        <span class="label">INSPIRATION</span>
+        <blockquote>People fall in love with the result, but they hate the process. You have to fall in
+        love with the boredom. You have to fall in love with the repetition.</blockquote>
+        <cite>Attributed to Kobe Bryant</cite>
       </div>
-      <div class="part">
-        <h3>Learning</h3>
-        <p>Training does not end when orientation ends. Everyone should continue learning. The strongest team members are often the people who keep asking how they can do this better.</p>
+
+      <div class="ao-perspective">
+        <span class="label">AO PERSPECTIVE</span>
+        <p>Being on time is not the same as being ready.</p>
       </div>
-      <div class="part">
-        <h3>Receiving feedback</h3>
-        <p>Feedback is not punishment. Feedback is information. When someone identifies an opportunity for improvement, our first reaction should be curiosity rather than defensiveness.</p>
+
+      <div class="means">
+        <h3>What this means at AO</h3>
+        <p>One of our major opportunities is preparation. We can arrive on time and still be unprepared.
+        Better Every Day means studying the systems, reviewing the schedule, planning the day, learning
+        from what went wrong, and then staying consistent with the improvement.</p>
+        <h3 style="margin-top:24px">Preparation before clinic</h3>
         <ul>
-          <li>What am I missing?</li>
-          <li>What could I do differently?</li>
-          <li>Can you show me?</li>
-          <li>What should this look like next time?</li>
+          <li>Where is doctor time concentrated?</li>
+          <li>Are there potential bottlenecks, bondings, emergencies, or unusual appointments?</li>
+          <li>Is somebody absent, and does someone need to float?</li>
+          <li>Are trays, brackets, suction, handpieces, and materials ready?</li>
+          <li>Are there problems later in the day that we can solve now?</li>
         </ul>
       </div>
-      <div class="part">
-        <h3>Training others</h3>
-        <p>Learning becomes even more valuable when it can be transferred. Experienced team members have a responsibility to help develop newer team members, and training others strengthens your own understanding. If the organization depends on only one person knowing how to do something, we have a vulnerability.</p>
+
+      <div class="action">
+        <h3>AO in action: recurring 7 tube emergencies</h3>
+        <p class="sub" style="margin-bottom:18px">Instead of accepting "we are getting a lot of
+        emergencies," investigate the process.</p>
+        <div class="diagnostic">
+          <div class="dq"><span>Are we sand conditioning?</span><span class="yes">YES</span></div>
+          <div class="dq"><span>Are we isolating sufficiently?</span><span class="yes">YES</span></div>
+          <div class="dq"><span>Are we using the PFI to butter adhesive into the bracket pad?</span>
+            <span class="no">NO</span></div>
+        </div>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>The same emergency keeps coming back and the first two checks are already correct.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>The third answer is the actionable system improvement: PFI at every bonding, followed by monitoring whether the emergency rate improves.</p></div>
       </div>
-      <div class="part">
-        <h3>Systems thinking</h3>
-        <p>Great offices do not rely entirely on memory or heroics. They create reliable systems. Whenever a recurring problem occurs, we ask whether this is a people problem or a system problem. Sometimes someone needs additional training. Other times the process itself needs to be improved.</p>
-        <ul class="cols">
-          <li>Checklists</li>
-          <li>Written procedures</li>
-          <li>Training videos</li>
-          <li>Standardized notes</li>
-          <li>Defined handoffs</li>
-          <li>Clear responsibilities</li>
-          <li>Visual systems</li>
-          <li>Templates</li>
-          <li>Better technology</li>
-          <li>Better communication</li>
-        </ul>
       </div>
-      <div class="part">
-        <h3>Consistency</h3>
-        <p>Once we develop a good system, everyone should follow it. We should not have five different versions of the same procedure unless there is a legitimate reason.</p>
-        <ul class="cols">
-          <li>Train faster</li>
-          <li>Identify problems</li>
-          <li>Improve quality</li>
-          <li>Reduce mistakes</li>
-          <li>Improve safety</li>
-          <li>Increase efficiency</li>
-        </ul>
-      </div>
-      <div class="part">
-        <h3>Innovation</h3>
-        <p>Just because we have always done something one way does not mean it is the best way. Ideas are welcome, in technology, patient communication, scheduling, clinical technique, training, workflow, marketing, documentation, and patient education.</p>
-        <p>Innovation does not mean ignoring established systems. The correct sequence is: understand the system, identify an opportunity, propose an improvement, test it, then adopt it as a team.</p>
-      </div>
-      <div class="part">
-        <h3>Balance</h3>
-        <p>Continuous improvement should be sustainable. We believe in maintaining a healthy work-life balance. Hustle does not mean burning people out. At AO, hustle means that when we are working, we work with purpose, urgency, focus, and energy.</p>
-        <p>Sustainable excellence means performing at a high level while respecting the health and well-being of the team.</p>
-      </div>
-      <div class="part wide">
-        <h3>Never become complacent</h3>
-        <p>Success can become dangerous when it causes us to stop improving. We should be proud of what we have built without believing that we are finished building it.</p>
+
+    <div class="reflect">
+      <h3>After a difficult session</h3>
+      <ul>
+        <li>What created the delay?</li>
+        <li>Where did the problem actually start?</li>
+        <li>Could we have seen it coming?</li>
+        <li>What do we change tomorrow?</li>
+        <li>How do we make sure the change lasts longer than two weeks?</li>
+      </ul>
+    </div>
+
+    <div class="wwyd">
+      <span class="label">WHAT WOULD YOU DO?</span>
+      <p class="q">We keep seeing the same emergency. What is the first question?</p>
+      <button class="reveal-btn" type="button" aria-expanded="false" aria-controls="better-every-day-reveal">
+        <span class="btn-label">Reveal the AO response</span><span class="chev">&#9662;</span>
+      </button>
+      <div class="reveal-body" id="better-every-day-reveal" hidden>Where in the process do we first have an opportunity to change the outcome?</div>
+    </div>
+
+      <div class="reminder">
+        <span class="label">SIMPLE AO REMINDER</span>
+        <b>Prepare. Reflect. Improve. Repeat.</b>
       </div>
     </div>
 
-    <div class="twocol">
-      <div class="yes">
-        <h3>What BETTER EVERY DAY looks like</h3>
-        <ul>
-        <li>"This problem keeps happening, so I think we should change the process."</li>
-        <li>Feedback is met with curiosity: what am I missing, and what should this look like next time?</li>
-        <li>An experienced team member trains someone else rather than staying the only person who knows.</li>
-        <li>A recurring problem is examined as a system problem, not just a people problem.</li>
-        <li>An improvement is proposed, tested, and then adopted by the whole team.</li>
-        </ul>
+    <details class="deep-dive">
+      <summary><span class="chev">&#9662;</span>Explore the full standard
+        <span class="count">Continuous improvement, feedback, training others, systems thinking, innovation, balance</span></summary>
+      <div class="dd-body">
+        <div class="parts">
+          <div class="part">
+            <h3>Continuous improvement</h3>
+            <p>We continually develop:</p>
+            <ul class="cols">
+              <li>Clinical skills</li>
+              <li>Communication skills</li>
+              <li>Efficiency</li>
+              <li>Leadership skills</li>
+              <li>Technical knowledge</li>
+              <li>Patient-service skills</li>
+              <li>Systems</li>
+              <li>Processes</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Learning</h3>
+            <p>Training does not end when orientation ends. Everyone should continue learning. The strongest team members are often the people who keep asking how they can do this better.</p>
+          </div>
+          <div class="part">
+            <h3>Receiving feedback</h3>
+            <p>Feedback is not punishment. Feedback is information. When someone identifies an opportunity for improvement, our first reaction should be curiosity rather than defensiveness.</p>
+            <ul>
+              <li>What am I missing?</li>
+              <li>What could I do differently?</li>
+              <li>Can you show me?</li>
+              <li>What should this look like next time?</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Training others</h3>
+            <p>Learning becomes even more valuable when it can be transferred. Experienced team members have a responsibility to help develop newer team members, and training others strengthens your own understanding. If the organization depends on only one person knowing how to do something, we have a vulnerability.</p>
+          </div>
+          <div class="part">
+            <h3>Systems thinking</h3>
+            <p>Great offices do not rely entirely on memory or heroics. They create reliable systems. Whenever a recurring problem occurs, we ask whether this is a people problem or a system problem. Sometimes someone needs additional training. Other times the process itself needs to be improved.</p>
+            <ul class="cols">
+              <li>Checklists</li>
+              <li>Written procedures</li>
+              <li>Training videos</li>
+              <li>Standardized notes</li>
+              <li>Defined handoffs</li>
+              <li>Clear responsibilities</li>
+              <li>Visual systems</li>
+              <li>Templates</li>
+              <li>Better technology</li>
+              <li>Better communication</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Consistency</h3>
+            <p>Once we develop a good system, everyone should follow it. We should not have five different versions of the same procedure unless there is a legitimate reason.</p>
+            <ul class="cols">
+              <li>Train faster</li>
+              <li>Identify problems</li>
+              <li>Improve quality</li>
+              <li>Reduce mistakes</li>
+              <li>Improve safety</li>
+              <li>Increase efficiency</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Innovation</h3>
+            <p>Just because we have always done something one way does not mean it is the best way. Ideas are welcome, in technology, patient communication, scheduling, clinical technique, training, workflow, marketing, documentation, and patient education.</p>
+            <p>Innovation does not mean ignoring established systems. The correct sequence is: understand the system, identify an opportunity, propose an improvement, test it, then adopt it as a team.</p>
+          </div>
+          <div class="part">
+            <h3>Balance</h3>
+            <p>Continuous improvement should be sustainable. We believe in maintaining a healthy work-life balance. Hustle does not mean burning people out. At AO, hustle means that when we are working, we work with purpose, urgency, focus, and energy.</p>
+            <p>Sustainable excellence means performing at a high level while respecting the health and well-being of the team.</p>
+          </div>
+          <div class="part wide">
+            <h3>Never become complacent</h3>
+            <p>Success can become dangerous when it causes us to stop improving. We should be proud of what we have built without believing that we are finished building it.</p>
+          </div>
+        </div>
+        <div class="twocol">
+          <div class="yes">
+            <h3>What this looks like</h3>
+            <ul>
+            <li>"This problem keeps happening, so I think we should change the process."</li>
+            <li>Feedback is met with curiosity: what am I missing, and what should this look like next time?</li>
+            <li>An experienced team member trains someone else rather than staying the only person who knows.</li>
+            <li>A recurring problem is examined as a system problem, not just a people problem.</li>
+            <li>An improvement is proposed, tested, and then adopted by the whole team.</li>
+            </ul>
+          </div>
+          <div class="no-box">
+            <h3>What this does not look like</h3>
+            <ul>
+            <li>Becoming defensive whenever feedback is given</li>
+            <li>Creating personal versions of standardized systems</li>
+            <li>Ignoring established procedures in the name of a new idea</li>
+            <li>Relying on memory and heroics instead of building a system</li>
+            <li>Hoarding knowledge instead of training others</li>
+            <li>Believing we are finished building</li>
+            <li>Treating hustle as a reason to burn people out</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="no">
-        <h3>What BETTER EVERY DAY does not look like</h3>
-        <ul>
-        <li>Becoming defensive whenever feedback is given</li>
-        <li>Creating personal versions of standardized systems</li>
-        <li>Ignoring established procedures in the name of a new idea</li>
-        <li>Relying on memory and heroics instead of building a system</li>
-        <li>Hoarding knowledge instead of training others</li>
-        <li>Believing we are finished building</li>
-        <li>Treating hustle as a reason to burn people out</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reminder">
-      <span>Simple AO reminder</span>
-      <b>Learn it. Practice it. Teach it. Improve it.</b>
-    </div>
+    </details>
+    <nav class="pillar-nav" aria-label="Pillar navigation">
+      <a href="#one-team" data-goto="2">Previous: ONE TEAM</a>
+      <a href="#patient-first" data-goto="4">Next: PATIENT FIRST</a>
+    </nav>
   </div>
 </section>
 
-<section id="patient-first" style="--pc:var(--p5)">
+<section class="pillar" id="patient-first" style="--pc:var(--p5)">
   <div class="wrap">
     <div class="pillar-head">
       <div class="big">5</div>
       <div>
         <h2>PATIENT FIRST</h2>
-        <p class="tag">Deliver exceptional care and create raving fans.</p>
+        <p class="tag">Quality care. Clear communication. Exceptional experience.</p>
       </div>
     </div>
 
-    <div class="core">Every system, every role, and every team member ultimately exists to serve the patient. Excellent orthodontics alone is not enough. Our patients should receive both excellent clinical care and an exceptional experience. Our goal is to create raving fans.</div>
+    <div class="stage">
+      <!-- VIDEO SLOT: patient-first-video
+           Configure this in AO_VIDEOS at the bottom of the file.
+           While its id and src are both empty the block stays hidden. -->
+      <div class="video-slot pillar-video" id="patient-first-video" style="--pc:var(--p5)" hidden>
+        <div class="frame"></div>
+        <div class="cap"><b></b><span></span></div>
+      </div>
 
-    <div class="parts">
-      <div class="part">
-        <h3>Quality of care</h3>
-        <p>We provide attentive, thoughtful, high-quality orthodontic care. That means paying attention to details rather than simply completing an appointment.</p>
+      <div class="ao-perspective">
+        <span class="label">AO PERSPECTIVE</span>
+        <p>The patient should never feel the gaps between our systems.</p>
       </div>
-      <div class="part">
-        <h3>Attentiveness</h3>
-        <p>Patients should feel seen.</p>
-        <ul>
-          <li>Greet them</li>
-          <li>Use their name</li>
-          <li>Listen</li>
-          <li>Acknowledge parents and family members</li>
-          <li>Explain what we are doing</li>
-          <li>Recognize concerns</li>
-          <li>Respond to discomfort</li>
-          <li>Avoid making patients feel rushed through an assembly line</li>
-        </ul>
+
+      <div class="means">
+        <h3>What this means at AO</h3>
+        <p>Patient First is more than friendliness. It includes safety, time, communication, comfort,
+        guidance, and quality. The patient should feel cared for even when the office is busy.</p>
       </div>
-      <div class="part">
-        <h3>Positive experience</h3>
-        <p>Positivity is part of patient care. We want the office to feel friendly, helpful, organized, energetic, professional, and welcoming.</p>
-        <p>Positivity does not mean pretending problems do not exist. It means approaching problems with an attitude oriented toward solutions.</p>
+
+      <div class="action">
+        <h3>AO in action</h3>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient is seated and treatment is about to begin.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Safety glasses are already on. Patient safety should be automatic, not remembered.</p></div>
       </div>
-      <div class="part">
-        <h3>Transparent communication</h3>
-        <p>Patients deserve honest, understandable communication.</p>
-        <ul>
-          <li>What we are doing</li>
-          <li>Why we are doing it</li>
-          <li>What we need from the patient</li>
-          <li>What happened if something went wrong</li>
-          <li>What the next step will be</li>
-        </ul>
-        <p>Never allow confusion to continue simply because a difficult conversation would be uncomfortable.</p>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient has been seated for ten minutes with no communication and may be wondering whether they were forgotten.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Someone notices, acknowledges the delay, and communicates what is happening.</p></div>
       </div>
-      <div class="part">
-        <h3>Documentation</h3>
-        <p>If it is important, document it. The next team member should not have to reconstruct what happened from memory.</p>
-        <ul class="cols">
-          <li>Continuity of care</li>
-          <li>Communication</li>
-          <li>Accountability</li>
-          <li>Safety</li>
-          <li>Treatment planning</li>
-          <li>Follow-up</li>
-        </ul>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient is cleared to start but has a financial question, and Yadira is across the office.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Yeymy closes the loop with the patient's dentist, tells the patient they are cleared to start, listens to the financial concern, then personally walks the patient to Yadira instead of pointing across the office.</p></div>
       </div>
-      <div class="part">
-        <h3>Safety</h3>
-        <p>Patient safety comes before speed. We never sacrifice safety simply because the schedule is behind.</p>
-        <ul class="cols">
-          <li>Infection control</li>
-          <li>Proper PPE</li>
-          <li>Correct procedures</li>
-          <li>Accurate communication</li>
-          <li>Correct patient identification</li>
-          <li>Clinical judgment</li>
-          <li>Equipment safety</li>
-          <li>Documentation</li>
-        </ul>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient asks a question that belongs to another department.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Cross-training means the patient hears fewer versions of &quot;I don't know&quot; or &quot;you'll have to ask someone else.&quot;</p></div>
       </div>
-      <div class="part">
-        <h3>Gratitude</h3>
-        <p>Our patients allow Alexandria Orthodontics to exist. Every patient who walks through the door is choosing to trust us with their health, their smile, their time, their money, and their family. We should never allow familiarity to make us forget that privilege.</p>
+      <div class="action-card">
+        <div><span class="lbl">SITUATION</span><p>A patient tells the clinical team they strongly prefer a certain appointment time.</p></div>
+        <div class="resp"><span class="lbl">AO RESPONSE</span><p>Communicate that preference so they do not need to repeat it at checkout.</p></div>
       </div>
-      <div class="part">
-        <h3>Community</h3>
-        <p>Our responsibility extends beyond individual appointments. Alexandria Orthodontics should make a positive contribution to the community we serve. Our reputation is built through thousands of interactions over many years, and every interaction contributes to what Alexandria Orthodontics represents.</p>
       </div>
-      <div class="part wide">
-        <h3>The Patient First test</h3>
-        <p>When making a decision, ask: what creates the best combination of quality, safety, communication, and experience for the patient? The answer will often make the correct decision clearer.</p>
-        <p>Patient-centered care does not mean saying yes to every patient request. It does not mean ignoring systems, allowing disrespect toward the team, or compromising treatment quality. Sometimes putting the patient first means having a difficult conversation, enforcing a policy, slowing down, correcting a mistake, or saying no. The objective is always the patient's long-term best interest.</p>
+
+    <div class="reflect">
+      <h3>The Patient First question</h3>
+      <ul>
+        <li>What creates the best combination of quality, safety, communication, and experience for the patient?</li>
+      </ul>
+    </div>
+
+    <div class="wwyd">
+      <span class="label">WHAT WOULD YOU DO?</span>
+      <p class="q">A patient has been sitting for ten minutes and the assigned team member is still busy. What now?</p>
+      <button class="reveal-btn" type="button" aria-expanded="false" aria-controls="patient-first-reveal">
+        <span class="btn-label">Reveal the AO response</span><span class="chev">&#9662;</span>
+      </button>
+      <div class="reveal-body" id="patient-first-reveal" hidden>Someone else notices, acknowledges the patient, communicates the delay, and helps keep care moving.</div>
+    </div>
+
+      <div class="reminder">
+        <span class="label">SIMPLE AO REMINDER</span>
+        <b>Don't point. Don't pass off. Guide the patient all the way.</b>
       </div>
     </div>
 
-    <div class="twocol">
-      <div class="yes">
-        <h3>What PATIENT FIRST looks like</h3>
-        <ul>
-        <li>"The patient looked confused, so I stopped and explained what we were doing."</li>
-        <li>A patient is greeted by name and their parent is acknowledged.</li>
-        <li>Something goes wrong and the patient is told honestly what happened and what comes next.</li>
-        <li>The schedule is behind and safety still comes before speed.</li>
-        <li>A difficult conversation happens because it serves the patient's long-term interest.</li>
-        </ul>
+    <details class="deep-dive">
+      <summary><span class="chev">&#9662;</span>Explore the full standard
+        <span class="count">Quality of care, attentiveness, communication, documentation, safety, gratitude, community</span></summary>
+      <div class="dd-body">
+        <div class="parts">
+          <div class="part">
+            <h3>Quality of care</h3>
+            <p>We provide attentive, thoughtful, high-quality orthodontic care. That means paying attention to details rather than simply completing an appointment.</p>
+          </div>
+          <div class="part">
+            <h3>Attentiveness</h3>
+            <p>Patients should feel seen.</p>
+            <ul>
+              <li>Greet them</li>
+              <li>Use their name</li>
+              <li>Listen</li>
+              <li>Acknowledge parents and family members</li>
+              <li>Explain what we are doing</li>
+              <li>Recognize concerns</li>
+              <li>Respond to discomfort</li>
+              <li>Avoid making patients feel rushed through an assembly line</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Positive experience</h3>
+            <p>Positivity is part of patient care. We want the office to feel friendly, helpful, organized, energetic, professional, and welcoming.</p>
+            <p>Positivity does not mean pretending problems do not exist. It means approaching problems with an attitude oriented toward solutions.</p>
+          </div>
+          <div class="part">
+            <h3>Transparent communication</h3>
+            <p>Patients deserve honest, understandable communication.</p>
+            <ul>
+              <li>What we are doing</li>
+              <li>Why we are doing it</li>
+              <li>What we need from the patient</li>
+              <li>What happened if something went wrong</li>
+              <li>What the next step will be</li>
+            </ul>
+            <p>Never allow confusion to continue simply because a difficult conversation would be uncomfortable.</p>
+          </div>
+          <div class="part">
+            <h3>Documentation</h3>
+            <p>If it is important, document it. The next team member should not have to reconstruct what happened from memory.</p>
+            <ul class="cols">
+              <li>Continuity of care</li>
+              <li>Communication</li>
+              <li>Accountability</li>
+              <li>Safety</li>
+              <li>Treatment planning</li>
+              <li>Follow-up</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Safety</h3>
+            <p>Patient safety comes before speed. We never sacrifice safety simply because the schedule is behind.</p>
+            <ul class="cols">
+              <li>Infection control</li>
+              <li>Proper PPE</li>
+              <li>Correct procedures</li>
+              <li>Accurate communication</li>
+              <li>Correct patient identification</li>
+              <li>Clinical judgment</li>
+              <li>Equipment safety</li>
+              <li>Documentation</li>
+            </ul>
+          </div>
+          <div class="part">
+            <h3>Gratitude</h3>
+            <p>Our patients allow Alexandria Orthodontics to exist. Every patient who walks through the door is choosing to trust us with their health, their smile, their time, their money, and their family. We should never allow familiarity to make us forget that privilege.</p>
+          </div>
+          <div class="part">
+            <h3>Community</h3>
+            <p>Our responsibility extends beyond individual appointments. Alexandria Orthodontics should make a positive contribution to the community we serve. Our reputation is built through thousands of interactions over many years, and every interaction contributes to what Alexandria Orthodontics represents.</p>
+          </div>
+          <div class="part wide">
+            <h3>What Patient First does not mean</h3>
+            <p>Patient-centered care does not mean saying yes to every patient request. It does not mean ignoring systems, allowing disrespect toward the team, or compromising treatment quality. Sometimes putting the patient first means having a difficult conversation, enforcing a policy, slowing down, correcting a mistake, or saying no. The objective is always the patient's long-term best interest.</p>
+          </div>
+        </div>
+        <div class="twocol">
+          <div class="yes">
+            <h3>What this looks like</h3>
+            <ul>
+            <li>"The patient looked confused, so I stopped and explained what we were doing."</li>
+            <li>A patient is greeted by name and their parent is acknowledged.</li>
+            <li>Something goes wrong and the patient is told honestly what happened and what comes next.</li>
+            <li>The schedule is behind and safety still comes before speed.</li>
+            <li>A difficult conversation happens because it serves the patient's long-term interest.</li>
+            </ul>
+          </div>
+          <div class="no-box">
+            <h3>What this does not look like</h3>
+            <ul>
+            <li>Sacrificing patient experience because the office is busy</li>
+            <li>Sacrificing quality because the office is behind</li>
+            <li>Rushing patients through like an assembly line</li>
+            <li>Letting confusion continue to avoid an uncomfortable conversation</li>
+            <li>Poor documentation that leaves the next team member guessing</li>
+            <li>Saying yes to every request regardless of the patient's long-term interest</li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="no">
-        <h3>What PATIENT FIRST does not look like</h3>
-        <ul>
-        <li>Sacrificing patient experience because the office is busy</li>
-        <li>Sacrificing quality because the office is behind</li>
-        <li>Rushing patients through like an assembly line</li>
-        <li>Letting confusion continue to avoid an uncomfortable conversation</li>
-        <li>Poor documentation that leaves the next team member guessing</li>
-        <li>Saying yes to every request regardless of the patient's long-term interest</li>
-        </ul>
-      </div>
+    </details>
+    <nav class="pillar-nav" aria-label="Pillar navigation">
+      <a href="#better-every-day" data-goto="3">Previous: BETTER EVERY DAY</a>
+      <span>Last pillar</span>
+    </nav>
+  </div>
+</section>
+
+<section id="together">
+  <div class="wrap">
+    <h2>How the five pillars work together</h2>
+    <p class="sub">These are not five separate ideas. They form a sequence for how AO responds to problems
+    and opportunities.</p>
+
+    <div class="sequence">
+      <div class="seq-step" style="--pc:var(--p1)"><b>OWN IT</b>
+        <span>I recognize and accept my responsibility.</span></div>
+      <div class="seq-arrow" aria-hidden="true">&#8595;</div>
+      <div class="seq-step" style="--pc:var(--p2)"><b>FIND A WAY</b>
+        <span>I move toward a safe, practical solution.</span></div>
+      <div class="seq-arrow" aria-hidden="true">&#8595;</div>
+      <div class="seq-step" style="--pc:var(--p3)"><b>ONE TEAM</b>
+        <span>I communicate and involve the people who can help.</span></div>
+      <div class="seq-arrow" aria-hidden="true">&#8595;</div>
+      <div class="seq-step" style="--pc:var(--p4)"><b>BETTER EVERY DAY</b>
+        <span>We learn from what happened and improve the system.</span></div>
+      <div class="seq-arrow" aria-hidden="true">&#8595;</div>
+      <div class="seq-step" style="--pc:var(--p5)"><b>PATIENT FIRST</b>
+        <span>The patient benefits from everything above.</span></div>
     </div>
 
-    <div class="reminder">
-      <span>Simple AO reminder</span>
-      <b>Quality care. Clear communication. Exceptional experience.</b>
+    <div class="nonneg">
+      <span>Respect</span><span>Integrity</span><span>Safety</span><span>Always</span>
+    </div>
+
+    <div class="closer">
+      <h2>The standard</h2>
+      <p>We own our responsibilities, find solutions, support our team, improve every day, and ultimately
+      create a better experience for the patient.</p>
+      <p class="final">The standard is not perfection. The standard is ownership, communication, learning,
+      teamwork, and exceptional patient care.</p>
     </div>
   </div>
 </section>
 
-<section id="nonnegotiables">
+<section id="nonnegotiables" class="reference-section">
   <div class="wrap">
     <h2>The three non-negotiables</h2>
     <p class="sub">Three principles that should exist inside every AO cultural value. They do not need to
     become additional pillars because they should be present everywhere.</p>
-
     <div class="parts">
       <div class="part" style="--pc:var(--teal)">
         <h3>Respect</h3>
@@ -880,7 +1443,7 @@
   </div>
 </section>
 
-<section id="behavior">
+<section id="behavior" class="reference-section">
   <div class="wrap">
     <h2>Culture is behavior, not personality</h2>
     <div class="prose">
@@ -930,7 +1493,7 @@
   </div>
 </section>
 
-<section>
+<section class="reference-section">
   <div class="wrap">
     <h2>What we no longer normalize</h2>
     <p class="sub">Culture becomes clearer when we identify not only what we want, but also what we will no
@@ -961,7 +1524,7 @@
   </div>
 </section>
 
-<section>
+<section class="reference-section">
   <div class="wrap">
     <h2>What we reinforce</h2>
     <p class="sub">Culture grows when these behaviors receive attention. These are the things worth
@@ -991,22 +1554,7 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <h2>The AO culture equation</h2>
-    <p class="sub">A simple way to explain the relationship between the five values.</p>
-    <div class="equation">
-      <div class="eq-row" style="--pc:var(--p1)"><b>OWN IT</b><span>I accept responsibility.</span></div>
-      <div class="eq-row" style="--pc:var(--p2)"><b>FIND A WAY</b><span>I participate in solving the problem.</span></div>
-      <div class="eq-row" style="--pc:var(--p3)"><b>ONE TEAM</b><span>I communicate and help the people around me.</span></div>
-      <div class="eq-row" style="--pc:var(--p4)"><b>BETTER EVERY DAY</b><span>I learn from what happened and improve the system.</span></div>
-      <div class="eq-row" style="--pc:var(--p5)"><b>PATIENT FIRST</b><span>I remember who all of this is ultimately for.</span></div>
-      <div class="eq-total">= Alexandria Orthodontics culture</div>
-    </div>
-  </div>
-</section>
-
-<section>
+<section class="reference-section">
   <div class="wrap">
     <h2>Where the original handbook values live now</h2>
     <p class="sub">The original values do not disappear. They become components of a simpler and more
@@ -1032,19 +1580,10 @@
   </div>
 </section>
 
-<section id="standard">
+<section class="reference-section">
   <div class="wrap">
-    <h2>The standard</h2>
-    <div class="prose">
-      <p>The goal is not perfection. People will make mistakes. People will occasionally become overwhelmed.
-      People will need help. People will misunderstand something. People will have difficult days.</p>
-      <p>The cultural expectation is not "never make a mistake." The expectation is:</p>
-    </div>
-    <div class="quote">Own the mistake. Help solve the problem. Communicate with the team. Learn from what
-    happened. Protect the patient's experience.</div>
-
-    <div class="closer" style="margin-top:44px">
-      <h2>Our culture</h2>
+    <h2>Our culture</h2>
+    <div class="closer">
       <p>At Alexandria Orthodontics, we believe great patient care begins with a great team.</p>
       <p>We <em>OWN IT</em> by taking responsibility for our actions, decisions, communication, and
       results.</p>
@@ -1072,10 +1611,186 @@
   </div>
 </div>
 
+<div class="progress" id="progress" role="status" aria-live="polite"></div>
+
 
 <footer class="site">
   <div class="wrap">Alexandria Orthodontics &middot; Internal team training. Not for distribution outside the practice.</div>
 </footer>
+
+<script>
+/* =====================================================================
+   VIDEO CONFIGURATION
+
+   Each pillar and the two intro slots can hold one video. Paste the
+   Google Drive FILE ID between the quotes for "id". Any slot left as ""
+   stays completely hidden, so there is never an empty or broken player.
+
+   A Drive share link looks like:
+     https://drive.google.com/file/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/view
+                                     ^------- this is the ID -------^
+
+   To use a local file in the same folder instead of Drive, put the file
+   name in "src" rather than "id" (for example "AO_Culture_Own_It.mp4").
+   ===================================================================== */
+const AO_VIDEOS = {
+  "intro-mockumentary": {
+    id: "", src: "",
+    title: "Because It's Easy",
+    note: "2 min 56 sec"
+  },
+  "intro-five-pillars": {
+    id: "", src: "",
+    title: "The Five Pillars of AO Culture",
+    note: "1 min 50 sec"
+  },
+  "own-it-video": {
+    id: "", src: "",
+    title: "Own It: clinical scenarios 1 and 2",
+    note: "4 min 6 sec"
+  },
+  "find-a-way-video": {
+    id: "", src: "", title: "Find a Way", note: ""
+  },
+  "one-team-video": {
+    id: "", src: "", title: "One Team", note: ""
+  },
+  "better-every-day-video": {
+    id: "", src: "", title: "Better Every Day", note: ""
+  },
+  "patient-first-video": {
+    id: "", src: "", title: "Patient First", note: ""
+  }
+};
+
+(function () {
+  "use strict";
+
+  /* ---------- mount any configured videos ---------- */
+  Object.keys(AO_VIDEOS).forEach(function (key) {
+    var cfg = AO_VIDEOS[key];
+    var slot = document.getElementById(key);
+    if (!slot || !cfg) return;
+    if (!cfg.id && !cfg.src) return;           // nothing configured: stay hidden
+
+    var frame = slot.querySelector(".frame");
+    if (cfg.id) {
+      var f = document.createElement("iframe");
+      f.src = "https://drive.google.com/file/d/" + cfg.id + "/preview";
+      f.title = cfg.title || "Training video";
+      f.setAttribute("allow", "autoplay");
+      f.setAttribute("allowfullscreen", "");
+      frame.appendChild(f);
+    } else {
+      var v = document.createElement("video");
+      v.setAttribute("controls", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("preload", "metadata");
+      v.src = cfg.src;
+      frame.appendChild(v);
+    }
+    var cap = slot.querySelector(".cap");
+    if (cap) {
+      cap.querySelector("b").textContent = cfg.title || "";
+      cap.querySelector("span").textContent = cfg.note || "";
+    }
+    slot.hidden = false;
+  });
+
+  /* ---------- reveal buttons ---------- */
+  document.querySelectorAll(".reveal-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var body = document.getElementById(btn.getAttribute("aria-controls"));
+      if (!body) return;
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      body.hidden = open;
+      btn.querySelector(".btn-label").textContent =
+        open ? "Reveal the AO response" : "Hide the AO response";
+    });
+  });
+
+  /* ---------- pillar order ---------- */
+  var PILLARS = ["own-it", "find-a-way", "one-team", "better-every-day", "patient-first"];
+  var sections = PILLARS.map(function (id) { return document.getElementById(id); })
+                        .filter(Boolean);
+  var navLinks = {};
+  document.querySelectorAll(".jump a[data-pillar]").forEach(function (a) {
+    navLinks[a.getAttribute("data-pillar")] = a;
+  });
+
+  var progress = document.getElementById("progress");
+  var current = 0;
+
+  function setActive(idx) {
+    current = idx;
+    Object.keys(navLinks).forEach(function (k) { navLinks[k].classList.remove("active"); });
+    var id = PILLARS[idx];
+    if (navLinks[id]) navLinks[id].classList.add("active");
+    if (progress) {
+      progress.innerHTML = "Pillar <b>" + (idx + 1) + "</b> of 5";
+      var sec = document.getElementById(id);
+      if (sec) progress.style.setProperty("--pc", getComputedStyle(sec).getPropertyValue("--pc"));
+    }
+  }
+
+  if ("IntersectionObserver" in window && sections.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var i = PILLARS.indexOf(e.target.id);
+          if (i > -1) setActive(i);
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+  setActive(0);
+
+  /* ---------- presentation mode ---------- */
+  var toggle = document.getElementById("presToggle");
+  var label = document.getElementById("presLabel");
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= PILLARS.length) return;
+    var el = document.getElementById(PILLARS[idx]);
+    if (!el) return;
+    el.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth", block: "start" });
+    setActive(idx);
+  }
+  function prefersReduced() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  function setMode(on) {
+    document.body.classList.toggle("presenting", on);
+    toggle.setAttribute("aria-pressed", String(on));
+    label.textContent = on ? "Exit presentation" : "Presentation mode";
+    if (on) goTo(current);
+  }
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      setMode(!document.body.classList.contains("presenting"));
+    });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    var presenting = document.body.classList.contains("presenting");
+    var t = e.target.tagName;
+    if (t === "INPUT" || t === "TEXTAREA" || e.target.isContentEditable) return;
+    if (e.key === "Escape" && presenting) { setMode(false); return; }
+    if (!presenting) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); goTo(current + 1); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(current - 1); }
+  });
+
+  document.querySelectorAll("[data-goto]").forEach(function (a) {
+    a.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      goTo(parseInt(a.getAttribute("data-goto"), 10));
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
