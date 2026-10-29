@@ -299,6 +299,27 @@
   table.tbl td:first-child{font-weight:560;white-space:nowrap}
   table.tbl td.home{color:var(--teal)}
 
+  /* ---------- culture champion ---------- */
+  .champ{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    margin:0 0 34px}
+  .champ > div{background:var(--panel);padding:20px 22px}
+  .champ h3{margin:0 0 6px;font-size:1.02rem}
+  .champ p{margin:0;color:var(--muted);font-size:14.5px}
+  .ballot{background:var(--panel);border:1px solid var(--line-strong);border-radius:13px;
+    padding:28px 30px;max-width:720px}
+  .ballot .label{font-size:11.5px;letter-spacing:.16em;color:var(--teal);font-weight:650;
+    display:block;margin-bottom:12px}
+  .ballot h3{margin:0 0 12px;font-size:1.22rem;letter-spacing:-.015em}
+  .ballot p{color:#c5d6e4;font-size:1.01rem}
+  .ballot ul{margin:16px 0;padding:0;list-style:none}
+  .ballot ul li{padding:9px 0 9px 0;border-bottom:1px solid var(--line);font-size:1rem;color:#c5d6e4}
+  .ballot ul li:last-child{border-bottom:0}
+  .ballot ul li b{color:var(--pc);font-weight:650;letter-spacing:.02em}
+  .votes{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--teal);
+    color:var(--teal);border-radius:999px;padding:8px 18px;font-size:14px;font-weight:600;
+    margin-top:6px}
+
   /* ---------- closing sequence ---------- */
   .sequence{display:grid;gap:0;max-width:720px;margin:0 0 34px}
   .seq-step{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pc);
@@ -370,6 +391,7 @@
   <a href="#one-team" data-pillar="one-team" style="--pc:var(--p3)"><span class="n">3</span>ONE TEAM</a>
   <a href="#better-every-day" data-pillar="better-every-day" style="--pc:var(--p4)"><span class="n">4</span>BETTER EVERY DAY</a>
   <a href="#patient-first" data-pillar="patient-first" style="--pc:var(--p5)"><span class="n">5</span>PATIENT FIRST</a>
+  <a href="#champion">Culture Champion</a>
   <a href="#together">How they work together</a>
 </div></div>
 
@@ -1378,6 +1400,47 @@
       <a href="#better-every-day" data-goto="3">Previous: BETTER EVERY DAY</a>
       <span>Last pillar</span>
     </nav>
+  </div>
+</section>
+
+<section id="champion">
+  <div class="wrap">
+    <h2>AO Culture Champion of the Month</h2>
+    <p class="sub">Each month we recognize a team member who has gone above and beyond in demonstrating
+    our culture. Everyone gets two votes.</p>
+
+    <h3 style="margin-top:0">What we are looking for</h3>
+    <div class="champ">
+      <div><h3>Offers solutions, not just problems</h3>
+        <p>Brings the problem and a proposed way through it.</p></div>
+      <div><h3>Reliable and consistent</h3>
+        <p>Does what they said, the same way, every time.</p></div>
+      <div><h3>Comes prepared</h3>
+        <p>Has already done the reviewing before the day or the meeting starts.</p></div>
+      <div><h3>Takes initiative and ownership</h3>
+        <p>Sees it, claims it, finishes it, without being asked twice.</p></div>
+      <div><h3>Excellent communication</h3>
+        <p>Early, clear, to the right person, and closed out.</p></div>
+    </div>
+
+    <div class="ballot">
+      <span class="label">THIS MONTH'S NOMINATION</span>
+      <h3>Who would you nominate as this month's Culture Champion, and what did they do that stood out
+      to you?</h3>
+      <p>Think about someone who has demonstrated one or more of our five culture pillars.</p>
+      <ul>
+        <li style="--pc:var(--p1)"><b>OWN IT</b> &middot; Takes responsibility and follows through.</li>
+        <li style="--pc:var(--p2)"><b>FIND A WAY</b> &middot; Takes initiative and finds solutions.</li>
+        <li style="--pc:var(--p3)"><b>ONE TEAM</b> &middot; Supports others and communicates effectively.</li>
+        <li style="--pc:var(--p4)"><b>BETTER EVERY DAY</b> &middot; Shows a willingness to learn and improve.</li>
+        <li style="--pc:var(--p5)"><b>PATIENT FIRST</b> &middot; Goes the extra mile to provide exceptional
+        patient care.</li>
+      </ul>
+      <p>Share the name of the person you are nominating and a specific example of how they demonstrated
+      one or more of these values. The goal is to recognize the actions and behaviors that make our team
+      stronger and create a great experience for our patients.</p>
+      <span class="votes">Everyone gets two votes</span>
+    </div>
   </div>
 </section>
 
